@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 public class MenuPausa : MonoBehaviour
 {
     public GameObject PanelPausa;
+    public string MainMenu;
+    public string Juego2D_2;
+    public Temporizador temporizador;
 
     public void ControlMenu()
     {
@@ -13,25 +16,46 @@ public class MenuPausa : MonoBehaviour
         // Si el menú está abierto, pausamos el juego.
         if (!isActive)
         {
-            Time.timeScale = 0;  // Pausar el juego.
+            Time.timeScale = 0;
+            temporizador.PausarTemporizador();
         }
         else
         {
-            Time.timeScale = 1;  // Reanudar el juego.
+            Time.timeScale = 1;
+            temporizador.ReanudarTemporizador();
         }
     }
 
     public void ReiniciarJuego()
     {
-        Time.timeScale = 1;  // Asegurarnos de que el tiempo está normalizado al reiniciar.
+        Time.timeScale = 1;
+        temporizador.ReiniciarTemporizador();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Recargar la escena actual.
     }
 
     public void SaltarJuego()
     {
-        // Este código depende de cómo quieras "saltar", por ejemplo cargando otra escena:
-        // SceneManager.LoadScene("SiguienteNivel"); // Aquí "SiguienteNivel" es el nombre de la escena.
-        // O si es solo saltar una secuencia del juego, tienes que hacer el código correspondiente.
-        Debug.Log("Saltar juego (funcionalidad aún no implementada).");
+        if (PanelPausa != null)
+        {
+            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+        }
+
+        string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
+        SceneManager.UnloadSceneAsync(juegoActual);
+        SceneManager.LoadScene(Juego2D_2);
+        Screen.orientation = ScreenOrientation.Portrait;
+    }
+
+    public void SalirAlMenu()
+    {
+        if (PanelPausa != null)
+        {
+            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+        }
+
+        string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
+        SceneManager.UnloadSceneAsync(juegoActual);
+        SceneManager.LoadScene(MainMenu);
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 }
