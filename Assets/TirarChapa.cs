@@ -8,7 +8,6 @@ public class TirarChapa : MonoBehaviour
     private Vector2 startPos;
     private Vector2 dragStartPos;
     private LineRenderer lineRenderer;
-
     private Touchscreen touchscreen;
 
     void Start()
@@ -22,7 +21,7 @@ public class TirarChapa : MonoBehaviour
             lineRenderer.enabled = false;
         }
 
-        // Inicializamos el Touchscreen solo si el sistema de entrada está disponible
+        // Inicializa el Touchscreen correctamente
         if (Touchscreen.current != null)
         {
             touchscreen = Touchscreen.current;
@@ -35,14 +34,14 @@ public class TirarChapa : MonoBehaviour
 
     void Update()
     {
-        // Asegúrate de que el touchscreen no sea null
+        // Verificamos si el touchscreen está correctamente inicializado
         if (touchscreen == null)
         {
             Debug.LogError("El touchscreen no está inicializado correctamente.");
             return;  // Salimos del método si no está inicializado
         }
 
-        // Verificamos si el primer toque está presionado
+        // Verificamos si hay un toque en la pantalla
         if (touchscreen.primaryTouch.press.isPressed)
         {
             Vector2 worldTouchPos = Camera.main.ScreenToWorldPoint(touchscreen.primaryTouch.position.ReadValue());
@@ -50,6 +49,7 @@ public class TirarChapa : MonoBehaviour
             if (!isDragging)
             {
                 RaycastHit2D hit = Physics2D.Raycast(worldTouchPos, Vector2.zero);
+                // Comprobamos si el toque es sobre el objeto correcto (la ficha)
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     isDragging = true;
@@ -79,17 +79,20 @@ public class TirarChapa : MonoBehaviour
         // Detectamos cuando el dedo se levanta y lanzamos el objeto
         if (touchscreen.primaryTouch.press.wasReleasedThisFrame)  // Detecta cuando el toque se levanta
         {
-            Vector2 endPos = touchscreen.primaryTouch.position.ReadValue();
-            Vector2 direction = (startPos - endPos).normalized;  // Dirección del lanzamiento
-            float force = Vector2.Distance(startPos, endPos) * 10f;  // La fuerza se basa en la distancia entre el toque inicial y final
+            if (isDragging)
+            {
+                Vector2 endPos = Camera.main.ScreenToWorldPoint(touchscreen.primaryTouch.position.ReadValue());
+                Vector2 direction = (startPos - endPos).normalized;  // Dirección del lanzamiento
+                float force = Vector2.Distance(startPos, endPos) * 5f;  // Reducir el multiplicador de la fuerza
 
-            rb.gravityScale = 1;  // Reactivamos la gravedad
-            rb.AddForce(direction * force, ForceMode2D.Impulse);  // Lanzamos el objeto con la fuerza calculada
+                rb.gravityScale = 0;  // Reactivamos la gravedad
+                rb.AddForce(direction * force, ForceMode2D.Impulse);  // Lanzamos el objeto con la fuerza calculada
 
-            isDragging = false;  // Desactivamos el modo de arrastre
+                isDragging = false;  // Desactivamos el modo de arrastre
 
-            if (lineRenderer != null)
-                lineRenderer.enabled = false;  // Desactivamos la línea cuando el toque se levanta
+                if (lineRenderer != null)
+                    lineRenderer.enabled = false;  // Desactivamos la línea cuando el toque se levanta
+            }
         }
 
         // Restringir al círculo a la pantalla en caso de que se salga de los límites
