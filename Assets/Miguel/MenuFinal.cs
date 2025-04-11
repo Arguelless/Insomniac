@@ -1,30 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuPausa : MonoBehaviour
+public class MenuFinal : MonoBehaviour
 {
-    public GameObject PanelPausa;
+    public GameObject PanelFinal;
     public string MainMenu;
     public string Juego2D_2;
     public Temporizador temporizador;
-
-    public void ControlMenu()
-    {
-        bool isActive = PanelPausa.activeSelf;
-        PanelPausa.SetActive(!isActive);  // Alternar la visibilidad del menú.
-
-        // Si el menú está abierto, pausamos el juego.
-        if (!isActive)
-        {
-            Time.timeScale = 0;
-            temporizador.PausarTemporizador();
-        }
-        else
-        {
-            Time.timeScale = 1;
-            temporizador.ReanudarTemporizador();
-        }
-    }
 
     public void ReiniciarJuego()
     {
@@ -35,9 +17,9 @@ public class MenuPausa : MonoBehaviour
 
     public void SaltarJuego()
     {
-        if (PanelPausa != null)
+        if (PanelFinal != null)
         {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelFinal.SetActive(false); // Desactiva el panel del menú de pausa
         }
 
         string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
@@ -47,9 +29,9 @@ public class MenuPausa : MonoBehaviour
 
     public void SalirAlMenu()
     {
-        if (PanelPausa != null)
+        if (PanelFinal != null)
         {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelFinal.SetActive(false); // Desactiva el panel del menú de pausa
         }
 
         string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual

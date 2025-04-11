@@ -8,12 +8,16 @@ public class Temporizador : MonoBehaviour
     public float tiempoLimite = 60f; // 1 minuto
     private float tiempoRestante;
     private bool juegoPausado = false;
-
-    public TextMeshProUGUI textoTemporizador; // Asegúrate de asignar un Text en la UI para mostrar el temporizador
+    public Gol scriptGol;
+    public TextMeshProUGUI textoTemporizador;
+    public GameObject panelFinal;
+    public TextMeshProUGUI textoFinal;
 
     void Start()
     {
         tiempoRestante = tiempoLimite;
+        textoFinal.gameObject.SetActive(false);
+        panelFinal.SetActive(false);
     }
 
     void Update()
@@ -27,6 +31,7 @@ public class Temporizador : MonoBehaviour
             if (tiempoRestante < 0)
             {
                 tiempoRestante = 0;
+                FinalTemporizador();
             }
 
             // Actualizamos la UI con el tiempo restante
@@ -53,5 +58,28 @@ public class Temporizador : MonoBehaviour
     public void ReiniciarTemporizador()
     {
         tiempoRestante = tiempoLimite;
+    }
+
+    public void FinalTemporizador()
+    {
+        bool isActive = panelFinal.activeSelf;
+        panelFinal.SetActive(!isActive);
+        panelFinal.gameObject.SetActive(true);
+
+        if (tiempoRestante == 0)
+        {
+            if (scriptGol.contador1 == scriptGol.contador2)
+            {
+                textoFinal.text = "¡Has empatado la partida!";
+            }
+            else if(scriptGol.contador1 < scriptGol.contador2)
+            {
+                textoFinal.text = "¡Has perdido la partida!";
+            }
+            else if(scriptGol.contador1 > scriptGol.contador2) 
+            {
+                textoFinal.text = "¡Enhorabuena, has ganado la partida!";
+            }
+        }
     }
 }
