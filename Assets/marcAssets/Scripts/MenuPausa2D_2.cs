@@ -36,6 +36,16 @@ public class MenuPausa2D_2 : MonoBehaviour
         Screen.orientation = ScreenOrientation.Portrait;
     }
 
+    public void ReiniciarJuego()
+    {
+        if (PanelPausa != null)
+        {
+            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+        }
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Recargar la escena actual.
+    }
+
     public void SaltarAlJuego2D_3()
     {
         if (PanelPausa != null)
@@ -45,6 +55,7 @@ public class MenuPausa2D_2 : MonoBehaviour
 
         string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
         SceneManager.UnloadSceneAsync(juegoActual);
+        Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene(Juego2D_3);
     }
 

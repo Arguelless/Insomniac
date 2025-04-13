@@ -202,9 +202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
-        m_MethodName: CargarJuegoVR
+        m_MethodName: IniciarCambioAEscenaVR
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: MenuSeleccionJuego
         m_Mode: 1
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: CargarJuegoAR
         m_Mode: 1
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: CargarJuego2D_1
         m_Mode: 1
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: IniciarBucle
         m_Mode: 1
@@ -1848,13 +1848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ddf04b8327d124ea834474d942d7b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 582810880}
-  menuSeleccionJuego: {fileID: 1340389836}
-  Juego2D_1: Juego2D_1
-  Juego2D_2: Juego2D_2
-  Juego2D_3: Juego2D_3
-  JuegoAR: JuegoAR
-  JuegoVR: JuegoVR
 --- !u!1 &1243593483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,7 +2169,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: MenuSeleccionJuego
         m_Mode: 1
@@ -2796,7 +2789,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: CargarJuego2D_3
         m_Mode: 1
@@ -2903,7 +2896,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Soccer Stars
+  m_text: Marca Chapas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3065,7 +3058,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1234853924}
+      - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: CargarJuego2D_2
         m_Mode: 1
