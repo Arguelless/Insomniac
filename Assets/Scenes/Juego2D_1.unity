@@ -339,8 +339,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -2246,7 +2246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelPausa: {fileID: 1097823886}
   MainMenu: MainMenu
-  Juego2D_2: 
+  Juego2D_2: Juego2D_2
   temporizador: {fileID: 1208059867}
 --- !u!4 &662285152
 Transform:
@@ -2416,7 +2416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &702644214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2807,7 +2807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelFinal: {fileID: 702644213}
   MainMenu: MainMenu
-  Juego2D_2: 
+  Juego2D_2: Juego2D_2
   temporizador: {fileID: 1208059867}
 --- !u!4 &870871114
 Transform:
@@ -5878,8 +5878,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1011, y: 482.03}
-  m_SizeDelta: {x: 108.4458, y: 28.7058}
+  m_AnchoredPosition: {x: 1027, y: 482.03}
+  m_SizeDelta: {x: 151.8813, y: 50.368}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1790963037
 MonoBehaviour:
