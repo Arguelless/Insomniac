@@ -16,6 +16,7 @@ public class Temporizador : MonoBehaviour
     void Start()
     {
         tiempoRestante = tiempoLimite;
+        tiempoRestante -= Time.deltaTime;
         textoFinal.gameObject.SetActive(false);
         panelFinal.SetActive(false);
     }

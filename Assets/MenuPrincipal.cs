@@ -26,20 +26,25 @@ public class MenuPrincipal : MonoBehaviour
 
     public void IniciarBucle()
     {
-        SceneManager.LoadScene(Juego2D_1);
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        StartCoroutine(CargarEscena2D(Juego2D_1));
     }
 
     public void CargarJuego2D_1()
     {
-        SceneManager.LoadScene(Juego2D_1);
+        StartCoroutine(CargarEscena2D(Juego2D_1));
+    }
+
+    IEnumerator CargarEscena2D(string escena)
+    {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene(escena);
     }
 
     public void CargarJuego2D_2()
     {
-        SceneManager.LoadScene(Juego2D_2);
         Screen.orientation = ScreenOrientation.LandscapeLeft;
+        SceneManager.LoadScene(Juego2D_2);
     }
 
     public void CargarJuego2D_3()
