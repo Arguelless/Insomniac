@@ -31,7 +31,8 @@ public class MenuPrincipal : MonoBehaviour
 
     public void CargarJuego2D_1()
     {
-        StartCoroutine(CargarEscena2D(Juego2D_1));
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        SceneManager.LoadScene(Juego2D_1);
     }
 
     IEnumerator CargarEscena2D(string escena)
