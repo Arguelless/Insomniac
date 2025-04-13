@@ -60,33 +60,6 @@ public class MenuPrincipal : MonoBehaviour
 
     public void IniciarCambioAEscenaVR()
     {
-        StartCoroutine(CargarEscenaConXR());
+        SceneManager.LoadScene(JuegoVR);
     }
-
-    IEnumerator CargarEscenaConXR()
-    {
-        Debug.Log("Iniciando XR...");
-        yield return StartCoroutine(IniciarXR());
-
-        if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
-        {
-            Debug.Log("XR iniciado. Cargando escena VR...");
-            SceneManager.LoadScene(JuegoVR);
-        }
-        else
-        {
-            Debug.LogError("Fallo al iniciar XR");
-        }
-    }
-
-    IEnumerator IniciarXR()
-    {
-        XRGeneralSettings.Instance.Manager.InitializeLoader();
-        while (XRGeneralSettings.Instance.Manager.activeLoader == null)
-        {
-            yield return null;
-        }
-        XRGeneralSettings.Instance.Manager.StartSubsystems();
-    }
-
 }
