@@ -13,9 +13,6 @@ public class TirarChapa : MonoBehaviour
     public ControlTurnos controlTurnos;
     private bool puedeLanzar = false;
 
-    // Para marcar si esta ficha ya fue lanzada
-    private bool fichaLanzada = false;
-
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,7 +37,7 @@ public class TirarChapa : MonoBehaviour
     void Update()
     {
         // Si no está permitido lanzar o si no hay sistema de entrada, no hacer nada
-        if (!puedeLanzar || touchscreen == null || fichaLanzada)
+        if (!puedeLanzar || touchscreen == null)
             return;
 
         if (touchscreen.primaryTouch.press.isPressed)
@@ -85,7 +82,6 @@ public class TirarChapa : MonoBehaviour
                 rb.AddForce(direction * force, ForceMode2D.Impulse);
 
                 isDragging = false;
-                fichaLanzada = true; // Marca que la ficha ya fue lanzada
                 puedeLanzar = false;
 
                 if (lineRenderer != null)
@@ -120,7 +116,6 @@ public class TirarChapa : MonoBehaviour
     public void ActivarTurno()
     {
         puedeLanzar = true;
-        fichaLanzada = false;  // Permite lanzar esta ficha de nuevo en el siguiente turno
     }
 
     public void DesactivarTurno()

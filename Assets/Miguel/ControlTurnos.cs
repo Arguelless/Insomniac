@@ -52,11 +52,7 @@ public class ControlTurnos : MonoBehaviour
             // Activar la siguiente ficha que no haya sido lanzada aún
             foreach (var ficha in fichasHumano)
             {
-                if (!ficha.EstaEnMovimiento()) // Si la ficha no está en movimiento
-                {
-                    ficha.ActivarTurno();  // Activa esa ficha
-                    break;  // Solo activamos una ficha
-                }
+                ficha.ActivarTurno(); // Reactiva todas las fichas
             }
         }
     }
