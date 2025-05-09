@@ -8,17 +8,26 @@ public class TirarIA : TirarChapa
         base.Start(); // Asegura que 'rb' y otros componentes se inicialicen
     }
 
-    public void JugarTurno(Vector2 objetivo)
+    public void JugarTurno(Vector2 posicionPelota, Vector2 posicionPorteria)
     {
-        StartCoroutine(LanzarIA(objetivo));
+        StartCoroutine(LanzarIA(posicionPelota, posicionPorteria));
     }
 
-    IEnumerator LanzarIA(Vector2 objetivo)
+    IEnumerator LanzarIA(Vector2 posicionPelota, Vector2 posicionPorteria)
     {
         yield return new WaitForSeconds(1f);
 
-        Vector2 direccion = (objetivo - (Vector2)transform.position).normalized;
-        float fuerza = 4.5f;
+        // Dirección desde la ficha hacia la pelota
+        Vector2 direccion = (posicionPelota - (Vector2)transform.position).normalized;
+
+        // Distancia desde la ficha hasta la pelota
+        float distanciaFichaPelota = Vector2.Distance(transform.position, posicionPelota);
+
+        // Distancia desde la pelota hasta la portería
+        float distanciaPelotaPorteria = Vector2.Distance(posicionPelota, posicionPorteria);
+
+        // Calcular fuerza total: combinación de ambas distancias
+        float fuerza = (distanciaFichaPelota + distanciaPelotaPorteria) * 1.2f; // Puedes ajustar el multiplicador
 
         rb.AddForce(direccion * fuerza, ForceMode2D.Impulse);
 

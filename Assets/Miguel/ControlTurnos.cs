@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ControlTurnos : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class ControlTurnos : MonoBehaviour
 
     private enum Turno { Humano, IA }
     private Turno turnoActual;
+
+    public Transform porteriaHumano;
 
     void Start()
     {
@@ -27,6 +30,9 @@ public class ControlTurnos : MonoBehaviour
         // Esperar hasta que todas las fichas se detengan
         yield return new WaitUntil(() => !AlgoEnMovimiento());
 
+        // Restablecer fichas que cruzaron la línea de gol al final del turno
+        ResetearFichasQueCruzaronGol();
+
         if (turnoActual == Turno.Humano)
         {
             DesactivarTodasFichasHumano();
@@ -34,25 +40,53 @@ public class ControlTurnos : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
 
+            Vector2 posicionPelota = pelota.position;
+            Vector2 posicionPorteria = porteriaHumano.position;
+
+            TirarIA mejorFicha = null;
+            float mejorPuntaje = float.MinValue;
+
             foreach (var fichaIA in fichasIA)
             {
                 if (!fichaIA.EstaEnMovimiento())
                 {
-                    // Lanzamos hacia la pelota por ejemplo
-                    fichaIA.JugarTurno(pelota.position);
-                    break;
+                    Vector2 posFicha = fichaIA.transform.position;
+                    Vector2 direccionFichaPelota = (posicionPelota - posFicha).normalized;
+                    Vector2 direccionPelotaPorteria = (posicionPorteria - posicionPelota).normalized;
+
+                    float alineacion = Vector2.Dot(direccionFichaPelota, direccionPelotaPorteria);
+                    float distancia = Vector2.Distance(posFicha, posicionPelota);
+
+                    // Puntaje = alineación (máximo 1) * 100 - distancia
+                    float puntaje = alineacion * 100f - distancia;
+
+                    // Verifica si hay algo entre la ficha y la pelota
+                    RaycastHit2D hit = Physics2D.Raycast(posFicha, direccionFichaPelota, distancia);
+                    if (hit.collider != null && hit.collider.attachedRigidbody != pelota)
+                    {
+                        puntaje -= 100f; // Penaliza obstáculos
+                    }
+
+                    if (puntaje > mejorPuntaje)
+                    {
+                        mejorPuntaje = puntaje;
+                        mejorFicha = fichaIA;
+                    }
                 }
+            }
+
+            if (mejorFicha != null)
+            {
+                mejorFicha.JugarTurno(posicionPelota, posicionPorteria);
             }
         }
         else // Turno de la IA ha terminado
         {
-            // Volver a activar el turno para el humano
             turnoActual = Turno.Humano;
 
-            // Activar la siguiente ficha que no haya sido lanzada aún
             foreach (var ficha in fichasHumano)
             {
-                ficha.ActivarTurno(); // Reactiva todas las fichas
+                ficha.ActivarTurno();
             }
         }
     }
@@ -80,5 +114,14 @@ public class ControlTurnos : MonoBehaviour
                 return true;
 
         return pelota != null && pelota.linearVelocity.magnitude > 0.1f;
+    }
+
+    // Nuevo método para resetear las fichas que han cruzado la línea de gol
+    private void ResetearFichasQueCruzaronGol()
+    {
+        foreach (var ficha in fichasHumano.Concat(fichasIA))
+        {
+            ficha.ResetFicha(); // Llamamos al método para resetear la ficha si cruzó la línea de gol
+        }
     }
 }

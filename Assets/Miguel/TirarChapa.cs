@@ -15,6 +15,10 @@ public class TirarChapa : MonoBehaviour
 
     private static TirarChapa fichaActualmenteArrastrada = null;
 
+    private bool cruzoLineaDeGol = false;
+
+    private Vector2 posicionInicial; // Guardamos la posición inicial
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,6 +38,8 @@ public class TirarChapa : MonoBehaviour
         {
             Debug.LogError("El sistema de entrada 'Touchscreen' no está disponible.");
         }
+
+        posicionInicial = transform.position; // Guardar la posición inicial
     }
 
     void Update()
@@ -103,6 +109,26 @@ public class TirarChapa : MonoBehaviour
         }
 
         RestrictToScreen();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LineaGol")) // Asegúrate de que tus líneas de gol tengan ese tag
+        {
+            cruzoLineaDeGol = true;
+        }
+    }
+
+    // Método para resetear la ficha a su posición inicial si cruzó la línea de gol
+    public void ResetFicha()
+    {
+        if (cruzoLineaDeGol)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            transform.position = posicionInicial; // Restablecer la posición inicial
+            cruzoLineaDeGol = false; // Resetear la bandera
+        }
     }
 
     // Método para restringir el objeto dentro de la pantalla
