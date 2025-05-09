@@ -13,6 +13,8 @@ public class TirarChapa : MonoBehaviour
     public ControlTurnos controlTurnos;
     private bool puedeLanzar = false;
 
+    private static TirarChapa fichaActualmenteArrastrada = null;
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,8 +38,8 @@ public class TirarChapa : MonoBehaviour
 
     void Update()
     {
-        // Si no está permitido lanzar o si no hay sistema de entrada, no hacer nada
-        if (!puedeLanzar || touchscreen == null)
+        // Si no está permitido lanzar, no hay sistema de entrada, o ya se arrastra otra ficha, salir
+        if (!puedeLanzar || touchscreen == null || (fichaActualmenteArrastrada != null && fichaActualmenteArrastrada != this))
             return;
 
         if (touchscreen.primaryTouch.press.isPressed)
@@ -50,6 +52,8 @@ public class TirarChapa : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     isDragging = true;
+                    fichaActualmenteArrastrada = this; // ← AQUI MARCAMOS QUE ESTA ES LA SELECCIONADA
+
                     startPos = worldTouchPos;
                     dragStartPos = transform.position;
                     rb.linearVelocity = Vector2.zero;
@@ -83,15 +87,15 @@ public class TirarChapa : MonoBehaviour
 
                 isDragging = false;
                 puedeLanzar = false;
+                fichaActualmenteArrastrada = null; // ← LIBERAMOS PARA QUE OTRA PUEDA USARSE
 
                 if (lineRenderer != null)
                     lineRenderer.enabled = false;
 
-                // Avisar al controlador de turnos que se terminó el turno
                 if (controlTurnos != null)
                 {
                     foreach (var ficha in FindObjectsByType<TirarChapa>(FindObjectsSortMode.None))
-                        ficha.DesactivarTurno(); // Solo una ficha puede lanzarse por turno
+                        ficha.DesactivarTurno();
 
                     controlTurnos.SiguienteTurno();
                 }
