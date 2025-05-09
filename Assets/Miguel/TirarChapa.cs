@@ -3,14 +3,20 @@ using UnityEngine.InputSystem;
 
 public class TirarChapa : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     private bool isDragging = false;
     private Vector2 startPos;
     private Vector2 dragStartPos;
     private LineRenderer lineRenderer;
     private Touchscreen touchscreen;
 
-    void Start()
+    public ControlTurnos controlTurnos;
+    private bool puedeLanzar = false;
+
+    // Para marcar si esta ficha ya fue lanzada
+    private bool fichaLanzada = false;
+
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -21,27 +27,22 @@ public class TirarChapa : MonoBehaviour
             lineRenderer.enabled = false;
         }
 
-        // Inicializa el Touchscreen correctamente
         if (Touchscreen.current != null)
         {
             touchscreen = Touchscreen.current;
         }
         else
         {
-            Debug.LogError("El sistema de entrada 'Touchscreen' no está disponible. Asegúrate de tener el 'Input System' habilitado.");
+            Debug.LogError("El sistema de entrada 'Touchscreen' no está disponible.");
         }
     }
 
     void Update()
     {
-        // Verificamos si el touchscreen está correctamente inicializado
-        if (touchscreen == null)
-        {
-            Debug.LogError("El touchscreen no está inicializado correctamente.");
-            return;  // Salimos del método si no está inicializado
-        }
+        // Si no está permitido lanzar o si no hay sistema de entrada, no hacer nada
+        if (!puedeLanzar || touchscreen == null || fichaLanzada)
+            return;
 
-        // Verificamos si hay un toque en la pantalla
         if (touchscreen.primaryTouch.press.isPressed)
         {
             Vector2 worldTouchPos = Camera.main.ScreenToWorldPoint(touchscreen.primaryTouch.position.ReadValue());
@@ -49,53 +50,58 @@ public class TirarChapa : MonoBehaviour
             if (!isDragging)
             {
                 RaycastHit2D hit = Physics2D.Raycast(worldTouchPos, Vector2.zero);
-                // Comprobamos si el toque es sobre el objeto correcto (la ficha)
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     isDragging = true;
-                    startPos = worldTouchPos;  // Guardamos la posición inicial del toque
-                    dragStartPos = transform.position;  // Guardamos la posición inicial del objeto (estática)
-                    rb.linearVelocity = Vector2.zero;  // Detenemos cualquier movimiento previo
-                    rb.gravityScale = 0;  // Desactivamos la gravedad durante el arrastre
+                    startPos = worldTouchPos;
+                    dragStartPos = transform.position;
+                    rb.linearVelocity = Vector2.zero;
+                    rb.gravityScale = 0;
 
                     if (lineRenderer != null)
-                        lineRenderer.enabled = true;  // Activamos el LineRenderer para la visualización
+                        lineRenderer.enabled = true;
                 }
             }
 
-            if (isDragging)
+            if (isDragging && lineRenderer != null)
             {
-                if (lineRenderer != null)
-                {
-                    Vector2 dragDirection = (startPos - worldTouchPos).normalized;
-                    float previewLength = 2f;
+                Vector2 dragDirection = (startPos - worldTouchPos).normalized;
+                float previewLength = 2f;
 
-                    lineRenderer.SetPosition(0, dragStartPos);  // Usamos la posición original del objeto
-                    lineRenderer.SetPosition(1, (Vector2)dragStartPos + dragDirection * previewLength);  // Muestra la dirección de arrastre
-                }
+                lineRenderer.SetPosition(0, dragStartPos);
+                lineRenderer.SetPosition(1, dragStartPos + dragDirection * previewLength);
             }
         }
 
-        // Detectamos cuando el dedo se levanta y lanzamos el objeto
-        if (touchscreen.primaryTouch.press.wasReleasedThisFrame)  // Detecta cuando el toque se levanta
+        if (touchscreen.primaryTouch.press.wasReleasedThisFrame)
         {
             if (isDragging)
             {
                 Vector2 endPos = Camera.main.ScreenToWorldPoint(touchscreen.primaryTouch.position.ReadValue());
-                Vector2 direction = (startPos - endPos).normalized;  // Dirección del lanzamiento
-                float force = Vector2.Distance(startPos, endPos) * 5f;  // Reducir el multiplicador de la fuerza
+                Vector2 direction = (startPos - endPos).normalized;
+                float force = Vector2.Distance(startPos, endPos) * 5f;
 
-                rb.gravityScale = 0;  // Reactivamos la gravedad
-                rb.AddForce(direction * force, ForceMode2D.Impulse);  // Lanzamos el objeto con la fuerza calculada
+                rb.gravityScale = 0;
+                rb.AddForce(direction * force, ForceMode2D.Impulse);
 
-                isDragging = false;  // Desactivamos el modo de arrastre
+                isDragging = false;
+                fichaLanzada = true; // Marca que la ficha ya fue lanzada
+                puedeLanzar = false;
 
                 if (lineRenderer != null)
-                    lineRenderer.enabled = false;  // Desactivamos la línea cuando el toque se levanta
+                    lineRenderer.enabled = false;
+
+                // Avisar al controlador de turnos que se terminó el turno
+                if (controlTurnos != null)
+                {
+                    foreach (var ficha in FindObjectsByType<TirarChapa>(FindObjectsSortMode.None))
+                        ficha.DesactivarTurno(); // Solo una ficha puede lanzarse por turno
+
+                    controlTurnos.SiguienteTurno();
+                }
             }
         }
 
-        // Restringir al círculo a la pantalla en caso de que se salga de los límites
         RestrictToScreen();
     }
 
@@ -104,12 +110,26 @@ public class TirarChapa : MonoBehaviour
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
-        // Restringir a los límites de la pantalla (en píxeles)
         screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
         screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
 
-        // Convertir las coordenadas de pantalla de nuevo a mundo
         transform.position = Camera.main.ScreenToWorldPoint(screenPos);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);  // Mantener el valor z igual
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    public void ActivarTurno()
+    {
+        puedeLanzar = true;
+        fichaLanzada = false;  // Permite lanzar esta ficha de nuevo en el siguiente turno
+    }
+
+    public void DesactivarTurno()
+    {
+        puedeLanzar = false;
+    }
+
+    public bool EstaEnMovimiento()
+    {
+        return rb.linearVelocity.magnitude > 0.1f;
     }
 }

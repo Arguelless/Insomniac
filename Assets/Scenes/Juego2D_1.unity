@@ -884,6 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e201314859c3d440a72834dfdb3dc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!50 &269559817
 Rigidbody2D:
   serializedVersion: 5
@@ -897,8 +898,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -1136,6 +1137,7 @@ GameObject:
   - component: {fileID: 354778830}
   - component: {fileID: 354778829}
   - component: {fileID: 354778828}
+  - component: {fileID: 354778832}
   m_Layer: 0
   m_Name: Chapa1_IA
   m_TagString: Untagged
@@ -1156,8 +1158,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -1251,7 +1253,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1276,6 +1278,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &354778832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354778826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b55970fde8574baffc6fb768a3216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!1 &378688065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1544,7 @@ GameObject:
   - component: {fileID: 536571304}
   - component: {fileID: 536571303}
   - component: {fileID: 536571302}
+  - component: {fileID: 536571306}
   m_Layer: 0
   m_Name: Chapa2_IA
   m_TagString: Untagged
@@ -1549,8 +1565,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -1644,7 +1660,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1669,6 +1685,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &536571306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536571300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b55970fde8574baffc6fb768a3216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!1 &563708884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,6 +1731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e201314859c3d440a72834dfdb3dc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!50 &563708886
 Rigidbody2D:
   serializedVersion: 5
@@ -1715,8 +1745,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -1975,6 +2005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e201314859c3d440a72834dfdb3dc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!50 &620673487
 Rigidbody2D:
   serializedVersion: 5
@@ -1988,8 +2019,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -3378,6 +3409,7 @@ GameObject:
   - component: {fileID: 1027013705}
   - component: {fileID: 1027013704}
   - component: {fileID: 1027013703}
+  - component: {fileID: 1027013707}
   m_Layer: 0
   m_Name: Chapa5_IA
   m_TagString: Untagged
@@ -3398,8 +3430,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -3493,7 +3525,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3518,6 +3550,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1027013707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027013701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b55970fde8574baffc6fb768a3216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!1 &1062159081
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,8 +3595,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 1
+  m_AngularDamping: 0.5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -4203,6 +4248,7 @@ GameObject:
   - component: {fileID: 1310360959}
   - component: {fileID: 1310360958}
   - component: {fileID: 1310360957}
+  - component: {fileID: 1310360961}
   m_Layer: 0
   m_Name: Chapa3_IA
   m_TagString: Untagged
@@ -4223,8 +4269,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -4318,7 +4364,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4343,6 +4389,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1310360961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310360955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b55970fde8574baffc6fb768a3216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!1 &1348226836
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,6 +4414,7 @@ GameObject:
   - component: {fileID: 1348226840}
   - component: {fileID: 1348226839}
   - component: {fileID: 1348226838}
+  - component: {fileID: 1348226842}
   m_Layer: 0
   m_Name: Chapa4_IA
   m_TagString: Untagged
@@ -4375,8 +4435,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -4470,7 +4530,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4495,6 +4555,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1348226842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348226836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b55970fde8574baffc6fb768a3216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!1 &1461819220
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,6 +5675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e201314859c3d440a72834dfdb3dc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!50 &1704950014
 Rigidbody2D:
   serializedVersion: 5
@@ -5615,8 +5689,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -5842,6 +5916,63 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &1776041738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1776041740}
+  - component: {fileID: 1776041739}
+  m_Layer: 0
+  m_Name: ControlTurnos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1776041739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776041738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9831954a6a4203469b28650779695cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fichasHumano:
+  - {fileID: 1960660196}
+  - {fileID: 620673486}
+  - {fileID: 563708885}
+  - {fileID: 1704950013}
+  - {fileID: 269559816}
+  fichasIA:
+  - {fileID: 354778832}
+  - {fileID: 536571306}
+  - {fileID: 1310360961}
+  - {fileID: 1348226842}
+  - {fileID: 1027013707}
+  pelota: {fileID: 1062159082}
+--- !u!4 &1776041740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776041738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.0688646, y: 1.1729157, z: 6.014522}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790963035
 GameObject:
   m_ObjectHideFlags: 0
@@ -6304,8 +6435,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_LinearDamping: 2
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: e8c07bff687ea4b4790732ca6efb871e, type: 2}
   m_IncludeLayers:
@@ -6436,6 +6567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e201314859c3d440a72834dfdb3dc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlTurnos: {fileID: 1776041739}
 --- !u!120 &1960660197
 LineRenderer:
   serializedVersion: 2
@@ -7104,3 +7236,4 @@ SceneRoots:
   - {fileID: 2106747327}
   - {fileID: 870871114}
   - {fileID: 1202184661}
+  - {fileID: 1776041740}
