@@ -1,28 +1,22 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    private static MusicManager instancia;
+    private AudioSource audioSource;
 
     void Awake()
     {
-        if (instancia != null && instancia != this)
-        {
-            Destroy(gameObject); // Si ya hay uno, elimina este
-            return;
-        }
-
-        instancia = this;
+        audioSource = GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
+    }
 
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.loop = true;
-        audio.playOnAwake = true;
-
-        if (!audio.isPlaying)
+    public void PararMusica()
+    {
+        if (audioSource != null && audioSource.isPlaying)
         {
-            audio.Play();
+            audioSource.Stop();
         }
     }
+
 }
+
