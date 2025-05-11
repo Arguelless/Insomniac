@@ -12,6 +12,7 @@ public class Temporizador : MonoBehaviour
     public TextMeshProUGUI textoTemporizador;
     public GameObject panelFinal;
     public TextMeshProUGUI textoFinal;
+    public TextMeshProUGUI Puntuacion;
 
     void Start()
     {
@@ -66,21 +67,40 @@ public class Temporizador : MonoBehaviour
         bool isActive = panelFinal.activeSelf;
         panelFinal.SetActive(!isActive);
         panelFinal.gameObject.SetActive(true);
+        Puntuacion.gameObject.SetActive(true);
+        textoFinal.gameObject.SetActive(true);
 
         if (tiempoRestante == 0)
         {
+            int puntos = 0;
+
             if (scriptGol.contador1 == scriptGol.contador2)
             {
                 textoFinal.text = "¡Has empatado la partida!";
+                puntos = 500;
             }
-            else if(scriptGol.contador1 < scriptGol.contador2)
+            else if (scriptGol.contador1 < scriptGol.contador2)
             {
                 textoFinal.text = "¡Has perdido la partida!";
+                puntos = 0;
             }
-            else if(scriptGol.contador1 > scriptGol.contador2) 
+            else if (scriptGol.contador1 > scriptGol.contador2)
             {
                 textoFinal.text = "¡Enhorabuena, has ganado la partida!";
+                puntos = 1000;
             }
+
+            if (PuntuacionManager.Instance != null)
+            {
+                PuntuacionManager.Instance.AsignarPuntos(0, puntos);
+            }
+            else
+            {
+                Debug.LogError("La instancia de PuntuacionManager no está disponible.");
+            }
+
+            Puntuacion.text = puntos.ToString();
+
         }
     }
 }

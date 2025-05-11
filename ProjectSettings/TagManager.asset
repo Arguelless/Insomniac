@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags:
-  - Pelota
-  - LineaGol
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -42,6 +40,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3227804125
+    locked: 0
+  - name: Juego
+    uniqueID: 2675131853
     locked: 0
   m_RenderingLayers:
   - Default
