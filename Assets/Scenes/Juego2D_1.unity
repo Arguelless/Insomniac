@@ -1021,6 +1021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!50 &269559817
 Rigidbody2D:
   serializedVersion: 5
@@ -1427,6 +1428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!1 &378521791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,6 +1880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!1 &563708884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,6 +1915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!50 &563708886
 Rigidbody2D:
   serializedVersion: 5
@@ -2186,6 +2190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!50 &620673487
 Rigidbody2D:
   serializedVersion: 5
@@ -3744,6 +3749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!1 &1062159081
 GameObject:
   m_ObjectHideFlags: 0
@@ -4584,62 +4590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
---- !u!1 &1340390563
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1340390565}
-  - component: {fileID: 1340390564}
-  m_Layer: 0
-  m_Name: ControlFichas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1340390564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340390563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6fe9f0d3494454eacc112ab3dacca2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fichas:
-  - {fileID: 1960660191}
-  - {fileID: 620673485}
-  - {fileID: 563708884}
-  - {fileID: 1704950012}
-  - {fileID: 269559815}
-  posicionesIniciales:
-  - {x: -2.3, y: 0.39, z: 0}
-  - {x: -3.9, y: 0.39, z: 0}
-  - {x: -5.6, y: 1.99, z: 0}
-  - {x: -5.6, y: -0.99, z: 0}
-  - {x: -7.6, y: 0.39, z: 0}
---- !u!4 &1340390565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340390563}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1043375, y: 1.8741773, z: -0.08600706}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  posicionInicial: {x: 0, y: 0}
 --- !u!1 &1348226836
 GameObject:
   m_ObjectHideFlags: 0
@@ -4806,6 +4757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!1 &1461819220
 GameObject:
   m_ObjectHideFlags: 0
@@ -5914,6 +5866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!50 &1704950014
 Rigidbody2D:
   serializedVersion: 5
@@ -6894,6 +6847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlTurnos: {fileID: 1776041739}
+  posicionInicial: {x: 0, y: 0}
 --- !u!120 &1960660197
 LineRenderer:
   serializedVersion: 2
@@ -7565,4 +7519,3 @@ SceneRoots:
   - {fileID: 1776041740}
   - {fileID: 378521793}
   - {fileID: 1834510380}
-  - {fileID: 1340390565}

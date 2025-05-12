@@ -17,7 +17,12 @@ public class TirarChapa : MonoBehaviour
 
     private bool cruzoLineaDeGol = false;
 
-    private Vector2 posicionInicial; // Guardamos la posición inicial
+    public Vector2 posicionInicial; // Guardamos la posición inicial
+
+    protected virtual void Awake()
+    {
+        posicionInicial = transform.position;
+    }
 
     protected virtual void Start()
     {
@@ -39,7 +44,7 @@ public class TirarChapa : MonoBehaviour
             Debug.LogError("El sistema de entrada 'Touchscreen' no está disponible.");
         }
 
-        posicionInicial = transform.position; // Guardar la posición inicial
+        //transform.position = posicionInicial;
     }
 
     void Update()
