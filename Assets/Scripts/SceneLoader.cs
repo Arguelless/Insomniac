@@ -5,18 +5,9 @@ public class SceneLoader : MonoBehaviour
 {
     public void CargarSiguienteEscena()
     {
-        // Obtener una referencia al MenuPrincipal (asumiendo que tienes una)
-        MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
-
-        if (menuPrincipal != null)
-        {
-            menuPrincipal.JuegoTerminado(); // Indicar que el juego terminó manualmente
-            menuPrincipal.CargarJuegoActual(); // Cargar la siguiente escena
-        }
-        else
-        {
-            Debug.LogError("No se encontró el objeto MenuPrincipal en la escena.");
-        }
+        // Carga la siguiente escena en el Build Index
+        int escenaActual = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(escenaActual + 1);
     }
 
     // Alternativamente, puedes usar por nombre:

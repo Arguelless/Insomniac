@@ -16,8 +16,8 @@ public class Temporizador : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Temporizador.cs: Start() llamado."); // <--------------------- DEBUG
         tiempoRestante = tiempoLimite;
+        tiempoRestante -= Time.deltaTime;
         textoFinal.gameObject.SetActive(false);
         panelFinal.SetActive(false);
     }

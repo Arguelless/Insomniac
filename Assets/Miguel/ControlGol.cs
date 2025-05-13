@@ -3,19 +3,22 @@ using UnityEngine;
 public class ControlGol : MonoBehaviour
 {
     public string tipoLinea;
-    public Gol gestorDeGol; // Referencia al GameObject que tiene el script Gol.cs
+    public Gol lineaGolLocal;
+    public Gol lineaGolVisitante;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Pelota"))
         {
-            if (gestorDeGol != null)
+            if (tipoLinea == "LineaGolLocal")
             {
-                gestorDeGol.RegistrarGol(tipoLinea); // Pasamos el tipo de línea directamente
+                // Llamar al script Gol en la línea local
+                lineaGolLocal.RegistrarGol("LineaGolLocal");
             }
-            else
+            else if (tipoLinea == "LineaGolVisitante")
             {
-                Debug.LogError("El gestor de Gol no está asignado en " + gameObject.name);
+                // Llamar al script Gol en la línea visitante
+                lineaGolVisitante.RegistrarGol("LineaGolVisitante");
             }
         }
     }

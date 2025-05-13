@@ -1,13 +1,10 @@
 using UnityEngine;
-using TMPro;
 
 public class PuntuacionManager : MonoBehaviour
 {
     public static PuntuacionManager Instance;
 
     private int[] puntuaciones = new int[5]; // Asumiendo 5 juegos
-
-    public TextMeshProUGUI Puntuacion;
 
     private void Awake()
     {
