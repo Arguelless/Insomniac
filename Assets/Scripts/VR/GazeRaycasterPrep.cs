@@ -5,11 +5,11 @@ public class GazeRaycasterPrep : MonoBehaviour
     [Header("Retícula")]
     public Transform reticulaVisual;
     public float distanciaReticula = 2f;
-    public float escalaNormal = 0.01f;
-    public float escalaActiva = 0.02f;
+    public float escalaNormal = 0.05f;
+    public float escalaActiva = 0.15f;
 
     [Header("Interacción")]
-    public float tiempoNecesario = 1f;  // Tiempo que debes mirar para activar
+    public float tiempoNecesario = 2f;  // Tiempo que debes mirar para activar
     private float tiempoMirando = 0f;
 
     private IInteractuable objetoActual = null;

@@ -4,7 +4,7 @@ public class FormaRitmo : MonoBehaviour
 {
     public Transform destino;
     public float velocidad = 1f;
-    public float distanciaMinima = 0.1f; // distancia para considerar que llegó
+    public float distanciaMinima = 0.2f; // distancia para considerar que llegó
 
     private bool haSidoGolpeada = false;
 
@@ -18,7 +18,7 @@ public class FormaRitmo : MonoBehaviour
             // Si llega al destino y no fue golpeada, destruir y registrar fallo
             if (!haSidoGolpeada && Vector3.Distance(transform.position, destino.position) < distanciaMinima)
             {
-                FindObjectOfType<PuntuacionVRManager>().RegistrarFallo();
+                FindAnyObjectByType<PuntuacionVRManager>().RegistrarFallo();
                 Destroy(gameObject);
 
             }
