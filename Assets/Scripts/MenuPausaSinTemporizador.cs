@@ -35,8 +35,7 @@ public class MenuPausaSinTemporizador : MonoBehaviour
             PanelPausa.SetActive(false);
         }
 
-        string juegoActual = SceneManager.GetActiveScene().name;
-        SceneManager.UnloadSceneAsync(juegoActual);
+        Time.timeScale = 1;
         SceneManager.LoadScene(JuegoAR);
         Screen.orientation = ScreenOrientation.Portrait;
     }

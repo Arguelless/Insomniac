@@ -53,21 +53,6 @@ public class ARGhostSpawner : MonoBehaviour
     }
 
 
-    public class Fantasma : MonoBehaviour
-    {
-        void OnMouseDown()
-        {
-            ARGhostSpawner spawner = FindFirstObjectByType<ARGhostSpawner>();
-            if (spawner != null)
-            {
-                spawner.FantasmaAtrapado(gameObject);
-            }
-
-            Destroy(gameObject);
-        }
-    }
-
-
     void SpawnFantasma()
     {
         Vector3 dir = Camera.main.transform.forward;
@@ -85,10 +70,10 @@ public class ARGhostSpawner : MonoBehaviour
 
     float CalcularVidaFantasma()
     {
-        if (fantasmasGenerados < 5) return 3.0f;
-        else if (fantasmasGenerados < 10) return 2.5f;
-        else if (fantasmasGenerados < 15) return 2.0f;
-        else return 1.5f;
+        if (fantasmasGenerados < 5) return 2.0f;
+        else if (fantasmasGenerados < 10) return 1.5f;
+        else if (fantasmasGenerados < 15) return 1.0f;
+        else return 0.7f;
     }
 
     IEnumerator DestruirFantasmaDespuesDeTiempo(GameObject fantasma, float segundos)
@@ -120,5 +105,18 @@ public class ARGhostSpawner : MonoBehaviour
         }
 
     }
+
+    public void SumarPuntos(int puntos)
+    {
+        puntuacion += puntos;
+        textoPuntos.text = "Puntos: " + puntuacion;
+
+        if (sonidoCaptura != null && Time.time - tiempoUltimoSonido >= intervaloSonido)
+        {
+            audioSource.PlayOneShot(sonidoCaptura);
+            tiempoUltimoSonido = Time.time;
+        }
+    }
+
 
 }
