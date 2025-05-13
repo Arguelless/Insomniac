@@ -14,7 +14,7 @@ public class PuntuacionUI : MonoBehaviour
 
     void Start()
     {
-        puntuacionVRManager = FindObjectOfType<PuntuacionVRManager>();
+        puntuacionVRManager = FindAnyObjectByType<PuntuacionVRManager>();
     }
 
     void Update()

@@ -1,9 +1,10 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class TemporizadorSalida : MonoBehaviour
 {
-    public float duracion = 60f; // 1 minuto
+    public float duracion = 60f;
+    public PuntuacionVRManager puntuacionVRManager;
 
     void Start()
     {
@@ -12,6 +13,17 @@ public class TemporizadorSalida : MonoBehaviour
 
     void CargarEscenaFin()
     {
+        if (puntuacionVRManager != null)
+        {
+            Debug.Log("Guardando puntuación: " + puntuacionVRManager.puntuacionVR); // DEBUG
+            PlayerPrefs.SetInt("PuntuacionFinVR", puntuacionVRManager.puntuacionVR);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Debug.LogWarning("puntuacionVRManager es NULL"); // DEBUG
+        }
+
         SceneManager.LoadScene("FinVR");
     }
 }

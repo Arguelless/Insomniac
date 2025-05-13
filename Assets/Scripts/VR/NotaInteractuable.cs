@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class NotaInteractuable : MonoBehaviour, IInteractuable
 {
-    [Header("Efectos")]
-    public GameObject efectoGolpe; // Asigna un prefab visual (partícula, luz, etc.)
+    [Header("Efectos visuales y sonoros")]
+    public GameObject efectoGolpe;
+    public AudioClip sonidoGolpe;
 
     private Material materialOriginal;
     private Color colorOriginal;
     private Renderer rend;
+    private bool golpeado = false;
 
     void Start()
     {
@@ -21,7 +23,6 @@ public class NotaInteractuable : MonoBehaviour, IInteractuable
 
     public void Mirando(float progreso)
     {
-        // Visual feedback de progreso (cambiar color, brillo, etc.)
         if (materialOriginal != null)
         {
             Color nuevoColor = Color.Lerp(colorOriginal, Color.green, progreso);
@@ -31,10 +32,11 @@ public class NotaInteractuable : MonoBehaviour, IInteractuable
 
     public void Accion()
     {
-        // Marcar como golpeada para que no cuente como fallo al llegar al destino
-        GetComponent<FormaRitmo>()?.MarcarComoGolpeada();
+        if (golpeado) return;
+        golpeado = true;
 
-        FindObjectOfType<PuntuacionVRManager>().RegistrarGolpe();
+        GetComponent<FormaRitmo>()?.MarcarComoGolpeada();
+        FindAnyObjectByType<PuntuacionVRManager>()?.RegistrarGolpe();
 
         if (efectoGolpe != null)
         {
@@ -42,7 +44,11 @@ public class NotaInteractuable : MonoBehaviour, IInteractuable
             Destroy(efecto, 2f);
         }
 
+        if (sonidoGolpe != null)
+        {
+            AudioSource.PlayClipAtPoint(sonidoGolpe, transform.position);
+        }
+
         Destroy(gameObject);
     }
-
 }

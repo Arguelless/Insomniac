@@ -20,8 +20,10 @@ public class FormaRitmo : MonoBehaviour
             {
                 FindObjectOfType<PuntuacionVRManager>().RegistrarFallo();
                 Destroy(gameObject);
+
             }
         }
+        
     }
 
     // Este método se llamará desde NotaInteractuable
