@@ -16,6 +16,7 @@ public class ControlTurnos : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("ControlTurnos.cs: Start() llamado."); // <--------------------- DEBUG
         turnoActual = Turno.Humano;
         ActivarFichaHumanoActual();
     }

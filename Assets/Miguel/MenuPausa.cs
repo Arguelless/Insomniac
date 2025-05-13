@@ -7,6 +7,7 @@ public class MenuPausa : MonoBehaviour
     public string MainMenu;
     public string Juego2D_2;
     public Temporizador temporizador;
+    private MenuPrincipal menuPrincipal;
 
     public void ControlMenu()
     {
@@ -31,18 +32,6 @@ public class MenuPausa : MonoBehaviour
         Time.timeScale = 1;
         temporizador.ReiniciarTemporizador();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Recargar la escena actual.
-    }
-
-    public void SaltarJuego()
-    {
-        if (PanelPausa != null)
-        {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
-        }
-
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene(Juego2D_2, LoadSceneMode.Single);
     }
 
     public void SalirAlMenu()

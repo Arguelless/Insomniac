@@ -3,17 +3,17 @@ using TMPro;
 
 public class Gol : MonoBehaviour
 {
-    public string tipoLinea;   // Para diferenciar la l�nea
     public int contador1;
     public int contador2;
-    public GameObject[] fichas;  // Las fichas que se reiniciar�n
-    private Vector3[] posicionesIniciales;  // Guardamos las posiciones iniciales de las fichas
+    public GameObject[] fichas;    // Las fichas que se reiniciarán
+    private Vector3[] posicionesIniciales;    // Guardamos las posiciones iniciales de las fichas
 
-    public TextMeshProUGUI golesLocal;  // Referencia al texto de goles local
-    public TextMeshProUGUI golesVisitante;  // Referencia al texto de goles visitante
+    public TextMeshProUGUI golesLocal;    // Referencia al texto de goles local
+    public TextMeshProUGUI golesVisitante;    // Referencia al texto de goles visitante
 
     void Start()
     {
+        Debug.Log("Gol.cs: Start() llamado."); // <--------------------- DEBUG
         contador1 = 0;
         contador2 = 0;
         ActualizarTexto();
@@ -26,20 +26,19 @@ public class Gol : MonoBehaviour
         }
     }
 
-    // Detectar colisiones con el trigger (l�nea)
+    // Método llamado por el script de la línea de gol al detectar una colisión
     public void RegistrarGol(string tipoLinea)
     {
-        
-        Debug.Log("�La pelota ha cruzado la l�nea!");
+        Debug.Log("¡La pelota ha cruzado la línea: " + tipoLinea + "!");
 
         if (tipoLinea == "LineaGolLocal")
         {
-            contador1++;  // Sumar un gol al contador 1 (Local)
+            contador1++;    // Sumar un gol al contador 1 (Local)
             Debug.Log("Gol local! Contador: " + contador1);
         }
         else if (tipoLinea == "LineaGolVisitante")
         {
-            contador2++;  // Sumar un gol al contador 2 (Visitante)
+            contador2++;    // Sumar un gol al contador 2 (Visitante)
             Debug.Log("Gol visitante! Contador: " + contador2);
         }
 
@@ -47,7 +46,7 @@ public class Gol : MonoBehaviour
         ReiniciarPosicionChapas();
     }
 
-    // M�todo para reiniciar las posiciones de las fichas
+    // Método para reiniciar las posiciones de las fichas
     private void ReiniciarPosicionChapas()
     {
         for (int i = 0; i < fichas.Length; i++)
@@ -57,15 +56,30 @@ public class Gol : MonoBehaviour
             Rigidbody2D rb = fichas[i].GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = Vector2.zero;  // Detener el movimiento
-                rb.angularVelocity = 0f;     // Detener la rotaci�n
+                rb.linearVelocity = Vector2.zero;    // Detener el movimiento
+                rb.angularVelocity = 0f;        // Detener la rotación
             }
         }
     }
 
     void ActualizarTexto()
     {
-        golesLocal.text = contador1.ToString();
-        golesVisitante.text = contador2.ToString();
+        if (golesLocal != null)
+        {
+            golesLocal.text = contador1.ToString();
+        }
+        else
+        {
+            Debug.LogError("Referencia a golesLocal no asignada en Gol.cs");
+        }
+
+        if (golesVisitante != null)
+        {
+            golesVisitante.text = contador2.ToString();
+        }
+        else
+        {
+            Debug.LogError("Referencia a golesVisitante no asignada en Gol.cs");
+        }
     }
 }
