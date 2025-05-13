@@ -1819,7 +1819,7 @@ MonoBehaviour:
   Juego2D_2: Juego2D_2
   Juego2D_3: Juego2D_3
   JuegoAR: JuegoAR
-  JuegoVR: JuegoVR
+  PreparacionVR: PreparacionVR
 --- !u!4 &1234853923
 Transform:
   m_ObjectHideFlags: 0

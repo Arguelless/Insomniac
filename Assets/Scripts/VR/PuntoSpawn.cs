@@ -1,23 +1,26 @@
 using UnityEngine;
 
-public class SpawnerFormas : MonoBehaviour
+public class PuntoSpawn : MonoBehaviour
 {
     public GameObject prefabForma;
-    public RectTransform[] puntosCarril;  // 3 puntos de spawn (izq, centro, der)
-    public float intervalo = 0.06f;       // cada 2 beats a 129 BPM
+    public Transform[] puntosCarril;  // 3 posiciones en el mundo (izq, centro, der)
+    public Transform[] destinosCarril; //3 finales de carriles (izq, cen, dewr)
+    public float intervalo = 0.06f;   // cada 2 beats a 129 BPM
 
     void Start()
     {
-        InvokeRepeating("Spawnear", 1f, intervalo);
+        InvokeRepeating(nameof(Spawnear), 1f, intervalo);
     }
 
     void Spawnear()
     {
         int carrilAleatorio = Random.Range(0, puntosCarril.Length);
-        RectTransform puntoSeleccionado = puntosCarril[carrilAleatorio];
 
-        GameObject nuevaForma = Instantiate(prefabForma, transform);
-        RectTransform rtForma = nuevaForma.GetComponent<RectTransform>();
-        rtForma.anchoredPosition = puntoSeleccionado.anchoredPosition;
+        Transform puntoInicio = puntosCarril[carrilAleatorio];
+        Transform puntoDestino = destinosCarril[carrilAleatorio];
+
+        GameObject nuevaForma = Instantiate(prefabForma, puntoInicio.position, Quaternion.identity);
+        FormaRitmo forma = nuevaForma.GetComponent<FormaRitmo>();
+        forma.destino = puntoDestino;
     }
 }
