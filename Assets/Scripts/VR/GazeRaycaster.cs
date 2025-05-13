@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class GazeRaycaster : MonoBehaviour
 {
-    public Transform reticulaVisual;            
-    public float distanciaReticula = 2f;         
+    public Transform reticulaVisual;
+    public float distanciaReticula = 2f;
     public float escalaNormal = 0.01f;
     public float escalaActiva = 0.02f;
-    public float tiempoNecesario = 1f;           // Tiempo para activar la interaccion
+    public float tiempoNecesario = 0.1f;           // Tiempo para activar la interaccion
     private float tiempoMirando = 0f;
 
     private IInteractuable objetoActual = null;
@@ -15,11 +15,11 @@ public class GazeRaycaster : MonoBehaviour
     {
         // Coloca la retícula delante de la cámara
         Ray ray = new Ray(transform.position, transform.forward);
-        reticulaVisual.position = ray.origin + ray.direction * distanciaReticula;
+        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            var interactuable = hit.collider.GetComponent<IInteractuable>();
+            var interactuable = hit.collider.GetComponentInParent<IInteractuable>();
 
             if (interactuable != null)
             {
