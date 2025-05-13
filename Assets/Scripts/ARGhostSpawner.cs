@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine;
-using System.Collections;
 using TMPro;
 
 public class ARGhostSpawner : MonoBehaviour
@@ -12,7 +10,6 @@ public class ARGhostSpawner : MonoBehaviour
     public float distanciaMax = 2f;
 
     public TMP_Text textoPuntos;
-
     public AudioClip sonidoCaptura;
     private AudioSource audioSource;
 
@@ -21,7 +18,6 @@ public class ARGhostSpawner : MonoBehaviour
     private int puntuacion = 0;
     private float tiempoUltimoSonido = -10f;
     public float intervaloSonido = 1.5f;
-
 
     public void IniciarJuego()
     {
@@ -43,15 +39,9 @@ public class ARGhostSpawner : MonoBehaviour
             }
         }
 
-        // Fin del juego
-        Debug.Log("¡Juego terminado! Puntuación final: " + puntuacion);
-        // Aquí pondremos mostrar el panel final
-
-        yield return new WaitForSeconds(2f); // espera 2 segundos antes del panel final
+        yield return new WaitForSeconds(2f);
         FindFirstObjectByType<ARGhostGameManager>()?.MostrarPanelFin(puntuacion);
-
     }
-
 
     void SpawnFantasma()
     {
@@ -102,21 +92,9 @@ public class ARGhostSpawner : MonoBehaviour
                 audioSource.PlayOneShot(sonidoCaptura);
                 tiempoUltimoSonido = Time.time;
             }
-        }
 
-    }
-
-    public void SumarPuntos(int puntos)
-    {
-        puntuacion += puntos;
-        textoPuntos.text = "Puntos: " + puntuacion;
-
-        if (sonidoCaptura != null && Time.time - tiempoUltimoSonido >= intervaloSonido)
-        {
-            audioSource.PlayOneShot(sonidoCaptura);
-            tiempoUltimoSonido = Time.time;
+            fantasmaActual = null;
         }
     }
-
-
 }
+

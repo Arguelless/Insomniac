@@ -986,7 +986,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5, y: 9, z: 1}
+  m_Size: {x: 3.5, y: 9, z: 0}
   m_Center: {x: 0.2, y: 0.8, z: 0}
 --- !u!1 &572888544
 GameObject:
@@ -1369,7 +1369,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5, y: 9, z: 1}
+  m_Size: {x: 3.5, y: 9, z: 0}
   m_Center: {x: 0.2, y: 0.8, z: 0}
 --- !u!1 &615029179
 GameObject:
@@ -3209,8 +3209,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6d46372ad5ee4f84caf6e1b330073b97, type: 3}
   m_Resource: {fileID: 8300000, guid: 6d46372ad5ee4f84caf6e1b330073b97, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.821
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3556,7 +3556,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5, y: 9, z: 1}
+  m_Size: {x: 3.5, y: 9, z: 0}
   m_Center: {x: 0.2, y: 0.8, z: 0}
 --- !u!1 &1526771568
 GameObject:
@@ -4208,7 +4208,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5, y: 9, z: 1}
+  m_Size: {x: 3.5, y: 9, z: 0}
   m_Center: {x: 0.2, y: 0.8, z: 0}
 --- !u!1 &1655675042
 GameObject:
@@ -4424,7 +4424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1915268114}
-  - component: {fileID: 1915268113}
+  - component: {fileID: 1915268115}
   m_Layer: 0
   m_Name: ControlToques
   m_TagString: Untagged
@@ -4432,19 +4432,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1915268113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915268112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7cc2f03347f2594fb6c2e2bff7277a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puntosPorFantasma: 50
 --- !u!4 &1915268114
 Transform:
   m_ObjectHideFlags: 0
@@ -4460,6 +4447,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1915268115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915268112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cc2f03347f2594fb6c2e2bff7277a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puntosPorFantasma: 50
 --- !u!1 &1958343235
 GameObject:
   m_ObjectHideFlags: 0

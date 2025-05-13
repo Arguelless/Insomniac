@@ -15,15 +15,16 @@ public class ToqueFantasma : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Fantasma"))
                 {
-                    Destroy(hit.collider.gameObject);
-
                     ARGhostSpawner spawner = FindFirstObjectByType<ARGhostSpawner>();
                     if (spawner != null)
                     {
-                        spawner.SumarPuntos(puntosPorFantasma);
+                        spawner.FantasmaAtrapado(hit.collider.gameObject);
                     }
+
+                    Destroy(hit.collider.gameObject);
                 }
             }
         }
     }
 }
+
