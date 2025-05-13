@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      brasil_0: 8336209402986743125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

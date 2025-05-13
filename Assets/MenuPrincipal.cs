@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using UnityEngine.XR.Management;
 
 public class MenuPrincipal : MonoBehaviour
 {
@@ -70,12 +68,7 @@ public class MenuPrincipal : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"Escena cargada: {scene.name}");
-
-        // Si se carga el JuegoVR, activar VR
-        if (scene.name == "JuegoVR")
-        {
-            StartVR();
-        }
+        // La lógica de inicialización de VR se ha movido a VRInitializer
     }
 
     // Cargar el juego 2D_1
@@ -107,21 +100,12 @@ public class MenuPrincipal : MonoBehaviour
     // Iniciar el cambio a la escena VR
     public void IniciarCambioAEscenaVR()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         SceneManager.LoadSceneAsync("JuegoVR");
     }
 
-    public void StartVR()
+    private void OnDestroy()
     {
-        XRGeneralSettings.Instance.Manager.InitializeLoaderSync(); // Inicializa el cargador XR de forma sincronizada
-
-        // Verifica si el cargador activo no se inicializó correctamente
-        if (XRGeneralSettings.Instance.Manager.activeLoader == null)
-        {
-            Debug.LogError("No se pudo iniciar VR."); // Muestra un error si no se pudo inicializar VR
-            return;
-        }
-
-        XRGeneralSettings.Instance.Manager.StartSubsystems(); // Inicia los subsistemas XR
-        Debug.Log("VR activado correctamente."); // Mensaje de confirmación
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

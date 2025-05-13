@@ -5,22 +5,35 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: b2925d98a2b6b5b4e9cc2ddce9f538b7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Juego2D_1.unity
     guid: 0c98d714df2ee1143a3e94177f629fd9
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/Juego2D_2.unity
+    guid: e13237660eb07f64f8acd8bd15dd3634
+  - enabled: 1
+    path: Assets/Scenes/Juego2D_3.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/JuegoAR.unity
+    guid: a3837f584ce69ba46bd1423c34c069d0
+  - enabled: 1
     path: Assets/Scenes/PreparacionVR.unity
-    guid: 29964b2d9e0def04d8abf4898d40ea7e
+    guid: 7f284d335f1cc74478e18e34fec620c3
   - enabled: 1
     path: Assets/Scenes/JuegoVR.unity
     guid: 11bac39529963304c8dab811449c30ec
+  - enabled: 1
+    path: Assets/Scenes/Puntuacion.unity
+    guid: 810bb26d1e4c0614087d6cc52c8c5aed
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: afad892897e5d8c4eaf69ebdb56ad5f7, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 67b6769f31f24b644bdbd231d5095202, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: a0ae46962356db1459c51981cb4a2946, type: 2}

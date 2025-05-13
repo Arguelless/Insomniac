@@ -202,6 +202,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 939307948}
+        m_TargetAssemblyTypeName: VRInitializer, Assembly-CSharp
+        m_MethodName: StartVR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1234853922}
         m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
         m_MethodName: IniciarCambioAEscenaVR
@@ -1025,6 +1037,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731272898}
   m_CullTransparentMesh: 1
+--- !u!1 &939307947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 939307949}
+  - component: {fileID: 939307948}
+  m_Layer: 0
+  m_Name: ControladorVR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &939307948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939307947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ce85e7e4bdc754aa8d0ca807d22c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &939307949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939307947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 261.22427, y: 173.11018, z: -15.270234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,12 +1383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0f953bc886d45499e39832aec19c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 60
   mainMenu: {fileID: 582810880}
-  Juego2D_1: Juego2D_1
-  Juego2D_2: Juego2D_2
-  Juego2D_3: Juego2D_3
-  JuegoAR: JuegoAR
-  JuegoVR: JuegoVR
 --- !u!4 &1234853923
 Transform:
   m_ObjectHideFlags: 0
@@ -2353,3 +2405,4 @@ SceneRoots:
   - {fileID: 1340389840}
   - {fileID: 1234853923}
   - {fileID: 2105505151}
+  - {fileID: 939307949}
