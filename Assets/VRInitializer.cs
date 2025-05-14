@@ -13,13 +13,13 @@ public class VRInitializer : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "JuegoVR" && !vrInitialized)
+        if ((scene.name == "JuegoVR" || scene.name == "PreparacionVR") && !vrInitialized)
         {
             StartVR();
         }
-        else if (scene.name != "JuegoVR" && vrInitialized)
+        else if (scene.name != "JuegoVR" && scene.name != "PreparacionVR" && vrInitialized)
         {
-            StopVR(); // Opcional: detener VR al salir de la escena VR
+            StopVR(); // Opcional: detener VR al salir de las escenas VR
         }
     }
 

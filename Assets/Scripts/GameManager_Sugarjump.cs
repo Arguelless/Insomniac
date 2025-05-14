@@ -85,6 +85,11 @@ public class GameManager : MonoBehaviour
         }
         FindFirstObjectByType<MusicManager>()?.PararMusica();
 
+        if (PuntuacionManager.Instance != null)
+        {
+            PuntuacionManager.Instance.AsignarPuntos(2, puntuacion);
+        }
+
     }
 
     public bool JuegoFinalizado()
