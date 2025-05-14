@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine;
-using System.Collections;
 using TMPro;
 
 public class ARGhostSpawner : MonoBehaviour
@@ -12,7 +10,6 @@ public class ARGhostSpawner : MonoBehaviour
     public float distanciaMax = 2f;
 
     public TMP_Text textoPuntos;
-
     public AudioClip sonidoCaptura;
     private AudioSource audioSource;
 
@@ -21,7 +18,6 @@ public class ARGhostSpawner : MonoBehaviour
     private int puntuacion = 0;
     private float tiempoUltimoSonido = -10f;
     public float intervaloSonido = 1.5f;
-
 
     public void IniciarJuego()
     {
@@ -43,30 +39,9 @@ public class ARGhostSpawner : MonoBehaviour
             }
         }
 
-        // Fin del juego
-        Debug.Log("¡Juego terminado! Puntuación final: " + puntuacion);
-        // Aquí pondremos mostrar el panel final
-
-        yield return new WaitForSeconds(2f); // espera 2 segundos antes del panel final
+        yield return new WaitForSeconds(2f);
         FindFirstObjectByType<ARGhostGameManager>()?.MostrarPanelFin(puntuacion);
-
     }
-
-
-    public class Fantasma : MonoBehaviour
-    {
-        void OnMouseDown()
-        {
-            ARGhostSpawner spawner = FindFirstObjectByType<ARGhostSpawner>();
-            if (spawner != null)
-            {
-                spawner.FantasmaAtrapado(gameObject);
-            }
-
-            Destroy(gameObject);
-        }
-    }
-
 
     void SpawnFantasma()
     {
@@ -85,10 +60,10 @@ public class ARGhostSpawner : MonoBehaviour
 
     float CalcularVidaFantasma()
     {
-        if (fantasmasGenerados < 5) return 3.0f;
-        else if (fantasmasGenerados < 10) return 2.5f;
-        else if (fantasmasGenerados < 15) return 2.0f;
-        else return 1.5f;
+        if (fantasmasGenerados < 5) return 2.0f;
+        else if (fantasmasGenerados < 10) return 1.5f;
+        else if (fantasmasGenerados < 15) return 1.0f;
+        else return 0.7f;
     }
 
     IEnumerator DestruirFantasmaDespuesDeTiempo(GameObject fantasma, float segundos)
@@ -117,8 +92,9 @@ public class ARGhostSpawner : MonoBehaviour
                 audioSource.PlayOneShot(sonidoCaptura);
                 tiempoUltimoSonido = Time.time;
             }
+
+            fantasmaActual = null;
         }
-
     }
-
 }
+

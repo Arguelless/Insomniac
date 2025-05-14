@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 407795339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9e7cb64ce5af948b69a5d832a5bf29, type: 3}
+  m_Script: {fileID: 11500000, guid: c6d9d9a3df9807a48bf10d18932e4216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tiempoTotal: 60
@@ -5217,6 +5217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0964b9585e41a1d4da592d349cd7d56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escenasConMusica:
+  - Juego2D_3
 --- !u!82 &2058445467
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5229,7 +5231,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d3aa836e4f402254d918fcdd41f3d91b, type: 3}
   m_Resource: {fileID: 8300000, guid: d3aa836e4f402254d918fcdd41f3d91b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.586
   m_Pitch: 1
   Loop: 1
