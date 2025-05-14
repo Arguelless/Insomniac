@@ -1,7 +1,7 @@
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ARGhostGameManager : MonoBehaviour
 {
@@ -12,16 +12,40 @@ public class ARGhostGameManager : MonoBehaviour
 
     public ARGhostSpawner spawner;
 
+    private bool enBucle = false;
+
     void Start()
     {
-        panelInicio.SetActive(true);
-        panelFin.SetActive(false);
-        spawner.enabled = false; // No empieza hasta que pulsemos OK
+        // Comprobar si estamos en el modo bucle
+        MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
+        if (menuPrincipal != null && menuPrincipal.bucle)
+        {
+            enBucle = true;
+            // Si estamos en bucle, iniciar la cuenta atrás automáticamente
+            IniciarCuentaAtrasAutomatico();
+        }
+        else
+        {
+            enBucle = false;
+            // Si no estamos en bucle, mostrar el panel de inicio
+            panelInicio.SetActive(true);
+            panelFin.SetActive(false);
+            spawner.enabled = false; // No empieza hasta que pulsemos OK
+        }
     }
 
     public void BotonIniciarJuego()
     {
-        panelInicio.SetActive(false);
+        IniciarCuentaAtrasAutomatico();
+    }
+
+    public void IniciarCuentaAtrasAutomatico()
+    {
+        if (panelInicio != null)
+        {
+            panelInicio.SetActive(false);
+        }
+        panelFin.SetActive(false);
         StartCoroutine(CuentaAtras());
     }
 
@@ -37,7 +61,7 @@ public class ARGhostGameManager : MonoBehaviour
             segundos--;
         }
 
-        textoCuentaAtras.text = "0";
+        textoCuentaAtras.text = "¡GO!";
         yield return new WaitForSeconds(1f);
         textoCuentaAtras.gameObject.SetActive(false);
 
@@ -50,8 +74,31 @@ public class ARGhostGameManager : MonoBehaviour
         panelFin.SetActive(true);
         textoFin.text = "Juego terminado\nPuntos: " + puntuacionFinal;
 
+        if (PuntuacionManager.Instance != null)
+        {
+            PuntuacionManager.Instance.AsignarPuntos(3, puntuacionFinal);
+        }
+        else
+        {
+            Debug.LogError("La instancia de PuntuacionManager no está disponible.");
+        }
+
         // Parar la música
         FindFirstObjectByType<MusicManager>()?.PararMusica();
+
+        // Si estamos en bucle, podrías considerar iniciar el siguiente juego automáticamente aquí
+        if (enBucle)
+        {
+            // Encontrar y llamar a la función para avanzar al siguiente juego en MenuPrincipal
+            MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
+            if (menuPrincipal != null)
+            {
+                menuPrincipal.JuegoTerminado(); // Simula que el juego terminó (manualmente o por tiempo)
+            }
+            else
+            {
+                Debug.LogError("No se encontró MenuPrincipal para avanzar al siguiente juego en bucle.");
+            }
+        }
     }
 }
-

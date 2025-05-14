@@ -2941,7 +2941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1220813874
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4517,8 +4517,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1259103664}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: CargarEscenaPorNombre
-        m_Mode: 5
+        m_MethodName: CargarSiguienteEscena
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

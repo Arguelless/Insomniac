@@ -28,28 +28,37 @@ public class MenuPausaSinTemporizador : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void SaltarJuego()
-    {
-        if (PanelPausa != null)
-        {
-            PanelPausa.SetActive(false);
-        }
-
-        Time.timeScale = 1;
-        SceneManager.LoadScene(JuegoAR);
-        Screen.orientation = ScreenOrientation.Portrait;
-    }
-
     public void SalirAlMenu()
     {
-        if (PanelPausa != null)
+        // Encontrar la instancia persistente de MenuPrincipal
+        MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
+        if (menuPrincipal != null)
         {
-            PanelPausa.SetActive(false);
+            menuPrincipal.bucle = false; // Asegurarse de que el bucle esté desactivado
+            menuPrincipal.gameObject.SetActive(true); // Asegurarse de que esté activo en el menú
+            Debug.Log("MenuPrincipal encontrado y activado al salir al menú.");
+        }
+        else
+        {
+            Debug.LogError("No se encontró la instancia de MenuPrincipal al salir al menú.");
         }
 
         string juegoActual = SceneManager.GetActiveScene().name;
         SceneManager.UnloadSceneAsync(juegoActual);
         SceneManager.LoadScene(MainMenu);
         Screen.orientation = ScreenOrientation.Portrait;
+
+        if (PanelPausa != null)
+        {
+            PanelPausa.SetActive(false); // Desactivar al final
+        }
+    }
+
+    void DesactivarPanelPausa()
+    {
+        if (PanelPausa != null)
+        {
+            PanelPausa.SetActive(false);
+        }
     }
 }

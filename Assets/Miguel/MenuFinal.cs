@@ -8,33 +8,29 @@ public class MenuFinal : MonoBehaviour
     public string Juego2D_2;
     public Temporizador temporizador;
 
-    public void ReiniciarJuego()
-    {
-        Time.timeScale = 1;
-        temporizador.ReiniciarTemporizador();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Recargar la escena actual.
-    }
-
-    public void SaltarJuego()
-    {
-        if (PanelFinal != null)
-        {
-            PanelFinal.SetActive(false); // Desactiva el panel del menú de pausa
-        }
-
-        string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
-        SceneManager.UnloadSceneAsync(juegoActual);
-        SceneManager.LoadScene(Juego2D_2);
-    }
+    // ... (Otras funciones) ...
 
     public void SalirAlMenu()
     {
         if (PanelFinal != null)
         {
-            PanelFinal.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelFinal.SetActive(false);
         }
 
-        string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
+        // Encontrar la instancia persistente de MenuPrincipal
+        MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
+        if (menuPrincipal != null)
+        {
+            menuPrincipal.bucle = false; // Asegurarse de que el bucle esté desactivado
+            menuPrincipal.gameObject.SetActive(true); // Asegurarse de que esté activo en el menú
+            Debug.Log("MenuPrincipal encontrado y activado al salir al menú.");
+        }
+        else
+        {
+            Debug.LogError("No se encontró la instancia de MenuPrincipal al salir al menú.");
+        }
+
+        string juegoActual = SceneManager.GetActiveScene().name;
         SceneManager.UnloadSceneAsync(juegoActual);
         SceneManager.LoadScene(MainMenu);
         Screen.orientation = ScreenOrientation.Portrait;
