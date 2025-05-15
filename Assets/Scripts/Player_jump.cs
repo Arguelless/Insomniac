@@ -6,7 +6,7 @@ public class PlayerJump : MonoBehaviour
     private Rigidbody2D rb;
     public float jumpForce = 10f;
     private int jumpCount = 0;
-    public int maxJumps = 2;
+    public int maxJumps = 2; //maximo doble saltos
 
     public AudioClip sonidoSalto;
     public AudioClip sonidoPlataforma;
@@ -23,11 +23,11 @@ public class PlayerJump : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();  //añadimos sonido al salto y a la colisión
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Jump()
+    public void Jump() //saltos solo verticales
     {
         if (jumpCount < maxJumps)
         {
@@ -36,14 +36,14 @@ public class PlayerJump : MonoBehaviour
             jumpCount++;
 
             if (sonidoSalto != null)
-                audioSource.PlayOneShot(sonidoSalto);
+                audioSource.PlayOneShot(sonidoSalto); //sonido salto
         }
     }
 
     //Para cambiar animaciones del player
     void Update()
     {
-        if (rb.linearVelocity.y > 0.1f)
+        if (rb.linearVelocity.y > 0.1f) //animación cuando sube y cuando cae
         {
             spriteRenderer.sprite = spriteSubiendo;
         }
@@ -58,12 +58,12 @@ public class PlayerJump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            jumpCount = 0;
+            jumpCount = 0; //al tocar la plataforma se reinician los saltos, tienes otros 2 para hacer
 
-            spriteRenderer.sprite = spriteIdle;
+            spriteRenderer.sprite = spriteIdle; //animacion encima la plataforma
 
             if (sonidoPlataforma != null)
-                audioSource.PlayOneShot(sonidoPlataforma);
+                audioSource.PlayOneShot(sonidoPlataforma); //sonido solision
         }
     }
 
@@ -76,7 +76,7 @@ public class PlayerJump : MonoBehaviour
             if (gm != null && gm.JuegoFinalizado()) return; // No hacer nada si el juego ya acabó
 
             if (sonidoCafe != null)
-                audioSource.PlayOneShot(sonidoCafe);
+                audioSource.PlayOneShot(sonidoCafe); //sonido al caer en la raza
 
             gm.ElJugadorCayoEnLaTaza();
 

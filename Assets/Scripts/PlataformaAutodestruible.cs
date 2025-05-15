@@ -9,7 +9,7 @@ public class PlataformaAutodestruible : MonoBehaviour
 
     public void Activar()
     {
-        Debug.Log("Plataforma inicial activada.");
+        Debug.Log("Plataforma inicial activada."); //plataforma des de la que se empieza
         juegoActivo = true;
     }
 
@@ -23,14 +23,14 @@ public class PlataformaAutodestruible : MonoBehaviour
     {
         if (!juegoActivo || gameManager == null || gameManager.JuegoFinalizado()) return;
 
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player")) //el player cae encima la plataforma para iniciar el toque
         {
             foreach (ContactPoint2D punto in collision.contacts)
             {
-                if (punto.normal.y < -0.5f && !cuentaAtrasActiva)
+                if (punto.normal.y < -0.5f && !cuentaAtrasActiva) //se produce la colision y se inicia la cuenta atras de autodestrucción
                 {
                     cuentaAtrasActiva = true;
-                    StartCoroutine(DestruirEnTiempo(6f));
+                    StartCoroutine(DestruirEnTiempo(6f)); //tiempo en que la plataforma desaparece
                     break;
                 }
             }

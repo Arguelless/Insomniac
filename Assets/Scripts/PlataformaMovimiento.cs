@@ -34,18 +34,18 @@ public class PlataformaMovimiento : MonoBehaviour
     {
         if (gameManager != null && gameManager.JuegoFinalizado()) return;
 
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player")) //en el momento que el player toque la plataforma esta va a parar
         {
             foreach (ContactPoint2D punto in collision.contacts)
             {
                 if (punto.normal.y < -0.5f && !haParado)
                 {
-                    haParado = true;
+                    haParado = true; //confirmamos que hay toque y paramos
 
-                    if (!cuentaAtrasActiva)
+                    if (!cuentaAtrasActiva) //empieza cuenta atrás de autodestrucción
                     {
                         cuentaAtrasActiva = true;
-                        StartCoroutine(DestruirEnTiempo(3f)); // ajusta el tiempo si quieres
+                        StartCoroutine(DestruirEnTiempo(3f)); // podemos ajustar el tiempo si queremos cambiar dificultad
                     }
                     break;
                 }
