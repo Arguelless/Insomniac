@@ -33,6 +33,9 @@ EditorBuildSettings:
     path: Assets/Scenes/JuegoVR.unity
     guid: 11bac39529963304c8dab811449c30ec
   - enabled: 1
+    path: Assets/Scenes/FinVR.unity
+    guid: a970730656ed82b4eaee58ef5ef1f6a7
+  - enabled: 1
     path: Assets/Scenes/Puntuacion.unity
     guid: 810bb26d1e4c0614087d6cc52c8c5aed
   m_configObjects:
