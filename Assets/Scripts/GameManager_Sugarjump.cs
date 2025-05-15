@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         tiempoRestante = tiempoTotal;
         player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         panelFin.SetActive(false);
-        playerJump.enabled = false; // Desactivamos la lógica de salto
+        playerJump.enabled = false; // Desactivamos la lï¿½gica de salto
     }
 
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             if (tiempoRestante <= 0)
             {
                 tiempoRestante = 0;
-                FinalizarJuego(1000); // Ganó por sobrevivir
+                FinalizarJuego(1000); // Ganï¿½ por sobrevivir
             }
         }
     }
@@ -75,12 +75,12 @@ public class GameManager : MonoBehaviour
         juegoFinalizado = true;
         juegoActivo = false;
         panelFin.SetActive(true);
-        textoFin.text = "Juego terminado\nPuntuación: " + puntuacion;
+        textoFin.text = "Juego terminado\nPuntuaciï¿½n: " + puntuacion;
         plataformaSpawner.DetenerSpawner();
 
         if (puntuacion == 1000)
         {
-            // Solo desactivamos si ganó por tiempo
+            // Solo desactivamos si ganï¿½ por tiempo
             player.SetActive(false);
         }
         FindFirstObjectByType<MusicManager>()?.PararMusica();

@@ -2,16 +2,33 @@ using UnityEngine;
 
 public class FormaRitmo : MonoBehaviour
 {
-    public float velocidad = 200f;
-    RectTransform rt;
+    public Transform destino;
+    public float velocidad = 1f;
+    public float distanciaMinima = 0.2f; // distancia para considerar que llegó
 
-    void Start()
-    {
-        rt = GetComponent<RectTransform>();
-    }
+    private bool haSidoGolpeada = false;
 
     void Update()
     {
-        rt.anchoredPosition += Vector2.down * velocidad * Time.deltaTime;
+        if (destino != null)
+        {
+            Vector3 direccion = (destino.position - transform.position).normalized;
+            transform.position += direccion * velocidad * Time.deltaTime;
+
+            // Si llega al destino y no fue golpeada, destruir y registrar fallo
+            if (!haSidoGolpeada && Vector3.Distance(transform.position, destino.position) < distanciaMinima)
+            {
+                FindAnyObjectByType<PuntuacionVRManager>().RegistrarFallo();
+                Destroy(gameObject);
+
+            }
+        }
+        
+    }
+
+    // Este método se llamará desde NotaInteractuable
+    public void MarcarComoGolpeada()
+    {
+        haSidoGolpeada = true;
     }
 }
