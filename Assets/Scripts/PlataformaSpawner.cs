@@ -37,22 +37,22 @@ public class PlataformaSpawner : MonoBehaviour
         tiempoSiguienteSpawn = Time.time + tiempoEntreSpawns;
     }
 
-    void SpawnPlataforma()
+    void SpawnPlataforma() //randomizamos la aparición lateral de la plataforma
     {
         int index = Random.Range(0, plataformas.Length);
         GameObject plataformaElegida = plataformas[index];
 
-        float xPos = Random.value > 0.5f ? -6f : 6f;
+        float xPos = Random.value > 0.5f ? -6f : 6f; //des de donde empieza a aparecer
 
         GameObject nueva = Instantiate(plataformaElegida, new Vector3(xPos, alturaActual, 0f), Quaternion.identity);
 
-        float direccion = xPos < 0 ? 1f : -1f;
+        float direccion = xPos < 0 ? 1f : -1f; // hacia donde se dirige (izq o derecha)
         nueva.GetComponent<PlataformaMovimiento>().SetVelocidad(2f * direccion);
 
-        alturaActual += incrementoAltura;
+        alturaActual += incrementoAltura; //incremento de altura de las plataformas verticalmente
     }
 
-    public void DetenerSpawner()
+    public void DetenerSpawner() //al aprar el juego que ya no se generen más
     {
         juegoActivo = false;
     }

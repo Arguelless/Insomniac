@@ -1,83 +1,44 @@
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using Unity.XR.CoreUtils;
 using UnityEngine.XR.Management;
-using UnityEngine.SceneManagement;
 
 public class ARInitializer : MonoBehaviour
 {
     private ARSession arSession;
     private XROrigin xrOrigin;
-    public string arSceneName = "JuegoAR"; // Nombre de tu escena AR
 
-    void Start()
-    {
-        // Comprobar si estamos en la escena AR al inicio
-        if (SceneManager.GetActiveScene().name == arSceneName)
-        {
-            FindAndStartAR();
-        }
-        SceneManager.sceneLoaded += OnSceneLoaded; // Suscribirse al evento de carga de escena
-    }
-    void FindAndStartAR()
+    void Start() //al iniciar la escena buscamos los componentes AR y XR
     {
         arSession = FindObjectOfType<ARSession>();
         xrOrigin = FindObjectOfType<XROrigin>();
+
         if (arSession != null && xrOrigin != null)
         {
-            StartAR();
+            StartCoroutine(IniciarAR()); //si  LOS ENCUENTRA NOS VAMOS A INICIAR AR
         }
         else
         {
-            Debug.LogError("No se encontraron ARSession o XROrigin en la escena " + arSceneName);
+            Debug.LogError("Faltan componentes ARSession o XROrigin.");
         }
     }
 
-    public void StartAR()
+    private System.Collections.IEnumerator IniciarAR()
     {
-        XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
+        yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
 
-        if (XRGeneralSettings.Instance.Manager.activeLoader == null ||
-            !(XRGeneralSettings.Instance.Manager.activeLoader is XRLoader))
+        if (XRGeneralSettings.Instance.Manager.activeLoader == null)
         {
-            Debug.LogError("No se pudo iniciar AR.");
-            return;
+            Debug.LogError("No se pudo inicializar el loader AR.");
+            yield break;
         }
 
-        XRGeneralSettings.Instance.Manager.StartSubsystems();
+        XRGeneralSettings.Instance.Manager.StartSubsystems(); //SE INICIAN LOS SUBsistemas de AR
+
         arSession.enabled = true;
         xrOrigin.enabled = true;
-        Debug.Log("AR activado correctamente.");
-    }
 
-    public void StopAR()
-    {
-        if (arSession != null) arSession.enabled = false;
-        if (xrOrigin != null) xrOrigin.enabled = false;
-        if (XRGeneralSettings.Instance.Manager != null && XRGeneralSettings.Instance.Manager.activeLoader != null)
-        {
-            XRGeneralSettings.Instance.Manager.StopSubsystems();
-            XRGeneralSettings.Instance.Manager.DeinitializeLoader();
-        }
-        Debug.Log("AR desactivado.");
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Activar AR si se carga la escena AR
-        if (scene.name == arSceneName)
-        {
-            FindAndStartAR();
-        }
-        // Desactivar AR si se carga cualquier otra escena y AR está activo
-        else if (scene.name != arSceneName && XRGeneralSettings.Instance.Manager != null && XRGeneralSettings.Instance.Manager.activeLoader != null)
-        {
-            StopAR();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded; // Asegurarse de desuscribirse al destruir el objeto
+        Debug.Log("AR inicializado correctamente.");
     }
 }
+

@@ -49,7 +49,7 @@ public class ARGhostGameManager : MonoBehaviour
         StartCoroutine(CuentaAtras());
     }
 
-    IEnumerator CuentaAtras()
+    IEnumerator CuentaAtras()  //Antes de que empiece el juego
     {
         textoCuentaAtras.gameObject.SetActive(true);
         int segundos = 3;
@@ -61,7 +61,7 @@ public class ARGhostGameManager : MonoBehaviour
             segundos--;
         }
 
-        textoCuentaAtras.text = "¡GO!";
+        textoCuentaAtras.text = "GO";
         yield return new WaitForSeconds(1f);
         textoCuentaAtras.gameObject.SetActive(false);
 

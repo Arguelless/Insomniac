@@ -5,8 +5,8 @@ using TMPro;
 public class ARGhostSpawner : MonoBehaviour
 {
     public GameObject[] fantasmaPrefabs;
-    public int totalFantasmas = 20;
-    public float distanciaMin = 1f;
+    public int totalFantasmas = 20;  // 20 fantasma, a cada fantasma 50 puntos = maxima puntuación 1000 puntos
+    public float distanciaMin = 1f;  // se proyectan entre 1 y 2 metros ***despues podemos variarlo
     public float distanciaMax = 2f;
 
     public TMP_Text textoPuntos;
@@ -17,7 +17,7 @@ public class ARGhostSpawner : MonoBehaviour
     private int fantasmasGenerados = 0;
     private int puntuacion = 0;
     private float tiempoUltimoSonido = -10f;
-    public float intervaloSonido = 1.5f;
+    public float intervaloSonido = 1.5f; //para que no se solapen los sonidos al capturar
 
     public void IniciarJuego()
     {
@@ -25,7 +25,7 @@ public class ARGhostSpawner : MonoBehaviour
         StartCoroutine(SpawnFantasmaPeriodicamente());
     }
 
-    IEnumerator SpawnFantasmaPeriodicamente()
+    IEnumerator SpawnFantasmaPeriodicamente()  //randomizamos el tiempo de aparicion entre 1-3 segundos
     {
         while (fantasmasGenerados < totalFantasmas)
         {
@@ -40,10 +40,10 @@ public class ARGhostSpawner : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-        FindFirstObjectByType<ARGhostGameManager>()?.MostrarPanelFin(puntuacion);
+        FindFirstObjectByType<ARGhostGameManager>()?.MostrarPanelFin(puntuacion); //mostramos panel final
     }
 
-    void SpawnFantasma()
+    void SpawnFantasma() //el fantasma aparece en zonas aleatorias siempre miranto al jugador
     {
         Vector3 dir = Camera.main.transform.forward;
         Vector3 pos = Camera.main.transform.position + dir * Random.Range(distanciaMin, distanciaMax);
@@ -54,11 +54,11 @@ public class ARGhostSpawner : MonoBehaviour
         int index = Random.Range(0, fantasmaPrefabs.Length);
         fantasmaActual = Instantiate(fantasmaPrefabs[index], pos, rot);
 
-        float vida = CalcularVidaFantasma();
-        StartCoroutine(DestruirFantasmaDespuesDeTiempo(fantasmaActual, vida));
+        float vida = CalcularVidaFantasma(); //más adelante calcularemos el tiempo de aparición
+        StartCoroutine(DestruirFantasmaDespuesDeTiempo(fantasmaActual, vida)); //vive unos segundos y desaparece
     }
 
-    float CalcularVidaFantasma()
+    float CalcularVidaFantasma() //para disminuir el tiempo de aparicion de los fantasmas para incrementar la dificultad
     {
         if (fantasmasGenerados < 5) return 2.0f;
         else if (fantasmasGenerados < 10) return 1.5f;
@@ -66,7 +66,7 @@ public class ARGhostSpawner : MonoBehaviour
         else return 0.7f;
     }
 
-    IEnumerator DestruirFantasmaDespuesDeTiempo(GameObject fantasma, float segundos)
+    IEnumerator DestruirFantasmaDespuesDeTiempo(GameObject fantasma, float segundos) //tag fantasma para poder cazarlos
     {
         yield return new WaitForSeconds(segundos);
 
@@ -80,7 +80,7 @@ public class ARGhostSpawner : MonoBehaviour
         }
     }
 
-    public void FantasmaAtrapado(GameObject fantasma)
+    public void FantasmaAtrapado(GameObject fantasma) //cada fantasma atrapado son 50 puntos
     {
         if (fantasma == fantasmaActual)
         {
@@ -89,7 +89,7 @@ public class ARGhostSpawner : MonoBehaviour
 
             if (sonidoCaptura != null && Time.time - tiempoUltimoSonido >= intervaloSonido)
             {
-                audioSource.PlayOneShot(sonidoCaptura);
+                audioSource.PlayOneShot(sonidoCaptura); //sonido al capturar
                 tiempoUltimoSonido = Time.time;
             }
 
