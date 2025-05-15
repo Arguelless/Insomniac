@@ -5,9 +5,43 @@ public class MenuPausa : MonoBehaviour
 {
     public GameObject PanelPausa;
     public string MainMenu;
-    public string Juego2D_2;
     public Temporizador temporizador;
+    public GameObject botonPausa; // Arrastra el GameObject del botón de pausa aquí
     private MenuPrincipal menuPrincipal;
+
+    void Start()
+    {
+        // Buscar la instancia de MenuPrincipal al inicio
+        menuPrincipal = FindObjectOfType<MenuPrincipal>();
+
+        // Asegurarse de que el botón de pausa esté asignado
+        if (botonPausa == null)
+        {
+            Debug.LogError("El GameObject del botón de Pausa no está asignado en el Inspector de MenuPausa.");
+        }
+
+        // Establecer la visibilidad inicial del botón de pausa
+        ActualizarVisibilidadBotonPausa();
+    }
+
+    void Update()
+    {
+        // Actualizar la visibilidad del botón de pausa en cada frame (o cuando cambie el estado del bucle)
+        ActualizarVisibilidadBotonPausa();
+    }
+
+    void ActualizarVisibilidadBotonPausa()
+    {
+        if (menuPrincipal != null && botonPausa != null)
+        {
+            botonPausa.SetActive(!menuPrincipal.bucle); // Ocultar si bucle es true
+        }
+        else if (botonPausa != null)
+        {
+            // Si no se encuentra MenuPrincipal, mostrar el botón de pausa (por precaución)
+            botonPausa.SetActive(true);
+        }
+    }
 
     public void ControlMenu()
     {

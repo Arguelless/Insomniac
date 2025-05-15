@@ -2463,8 +2463,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelPausa: {fileID: 1097823886}
   MainMenu: MainMenu
-  Juego2D_2: Juego2D_2
   temporizador: {fileID: 1208059867}
+  botonPausa: {fileID: 1790963035}
 --- !u!4 &662285152
 Transform:
   m_ObjectHideFlags: 0
@@ -2633,7 +2633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &702644214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3025,8 +3025,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelFinal: {fileID: 702644213}
   MainMenu: MainMenu
-  Juego2D_2: Juego2D_2
+  Juego2D_1: Juego2D_1
   temporizador: {fileID: 1208059867}
+  botonReiniciar: {fileID: 378688065}
 --- !u!4 &870871114
 Transform:
   m_ObjectHideFlags: 0
