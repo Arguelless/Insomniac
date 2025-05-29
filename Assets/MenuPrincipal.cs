@@ -23,7 +23,7 @@ public class MenuPrincipal : MonoBehaviour
         vrInitializer = FindFirstObjectByType<VRInitializer>();
         if (vrInitializer == null)
         {
-            Debug.LogError("No se encontró el script VRInitializer en la inicialización de MenuPrincipal.");
+            Debug.LogError("No se encontrï¿½ el script VRInitializer en la inicializaciï¿½n de MenuPrincipal.");
         }
         else
         {
@@ -33,7 +33,7 @@ public class MenuPrincipal : MonoBehaviour
         xrManagerInstance = FindObjectOfType<XRManager>();
         if (xrManagerInstance == null)
         {
-            Debug.LogError("No se encontró la instancia de XRManager en MenuPrincipal.");
+            Debug.LogError("No se encontrï¿½ la instancia de XRManager en MenuPrincipal.");
         }
         else
         {
@@ -46,10 +46,6 @@ public class MenuPrincipal : MonoBehaviour
         Screen.orientation = ScreenOrientation.Portrait;
         Debug.Log("MenuPrincipal Start - bucle: " + bucle + ", timer: " + timer);
 
-        if (xrManagerInstance != null)
-        {
-            xrManagerInstance.SwitchXRProvider("JuegoVR");
-        }
     }
 
     public void IniciarBucle()
@@ -107,10 +103,14 @@ public class MenuPrincipal : MonoBehaviour
         if (currentGameIndex < juegos.Length)
         {
             string nombreJuego = juegos[currentGameIndex];
- 
+
             if (nombreJuego == "PreparacionVR2D")
             {
                 timer = 15f;
+            }
+            else if (nombreJuego == "Juego2D_2")
+            {
+                timer = 75f;
             }
             else
             {
@@ -155,7 +155,7 @@ public class MenuPrincipal : MonoBehaviour
                 SceneManager.LoadScene(nombreJuego);
             }
 
-            Debug.Log("CargarJuegoActual (fin) - bucle: " + bucle + ", timer: " + timer + ", juegoTerminadoManualmente: " + juegoTerminadoManualmente + ", Próximo juego: " + (currentGameIndex < juegos.Length - 1 ? juegos[currentGameIndex + 1] : "Fin del bucle"));
+            Debug.Log("CargarJuegoActual (fin) - bucle: " + bucle + ", timer: " + timer + ", juegoTerminadoManualmente: " + juegoTerminadoManualmente + ", Prï¿½ximo juego: " + (currentGameIndex < juegos.Length - 1 ? juegos[currentGameIndex + 1] : "Fin del bucle"));
         }
     }
 
@@ -165,7 +165,7 @@ public class MenuPrincipal : MonoBehaviour
         {
             bucle = false;
             currentGameIndex++;
-            Debug.Log("JuegoTerminado (manual) - bucle detenido, índice incrementado a: " + currentGameIndex);
+            Debug.Log("JuegoTerminado (manual) - bucle detenido, ï¿½ndice incrementado a: " + currentGameIndex);
 
             if (currentGameIndex < juegos.Length)
             {
@@ -182,7 +182,7 @@ public class MenuPrincipal : MonoBehaviour
         }
         else
         {
-            Debug.Log("JuegoTerminado llamado pero el bucle no está activo.");
+            Debug.Log("JuegoTerminado llamado pero el bucle no estï¿½ activo.");
         }
     }
 
@@ -227,22 +227,16 @@ public class MenuPrincipal : MonoBehaviour
 
     public void AjustarPantalla(string nombreJuego)
     {
-        if (nombreJuego == "Juego2D_1" || nombreJuego == "Juego2D_2" || nombreJuego == "JuegoVR" || nombreJuego == "PreparacionVR2D")
+        if (nombreJuego == "Juego2D_1" || nombreJuego == "Juego2D_2" || nombreJuego == "JuegoVR" || nombreJuego == "FinVR" || nombreJuego == "PreparacionVR2D")
             Screen.orientation = ScreenOrientation.LandscapeLeft;
-        else if (nombreJuego == "Juego2D_3" || nombreJuego == "JuegoAR" || nombreJuego == "FinVR" || nombreJuego == "Puntuacion")
+        else if (nombreJuego == "Juego2D_3" || nombreJuego == "JuegoAR" || nombreJuego == "Puntuacion")
             Screen.orientation = ScreenOrientation.Portrait;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Escena cargada: " + scene.name + " - bucle: " + bucle + ", timer: " + timer);
-
-        if (scene.name == "JuegoAR" && xrManagerInstance != null)
-        {
-            xrManagerInstance.SwitchXRProvider(scene.name);
-        }
-
-        else if (scene.name.Contains("VR") && xrManagerInstance != null)
+        if (scene.name.Contains("VR") && xrManagerInstance != null)
         {
             xrManagerInstance.SwitchXRProvider(scene.name);
         }

@@ -6,19 +6,28 @@ public class MenuPausa2D_2 : MonoBehaviour
     public GameObject PanelPausa;
     public string MainMenu;
     public string Juego2D_3;
+    public TimerControllerm timerController; // Referencia al TimerControllerm
 
     public void ControlMenu()
     {
         bool isActive = PanelPausa.activeSelf;
-        PanelPausa.SetActive(!isActive);  // Alternar la visibilidad del menú.
+        PanelPausa.SetActive(!isActive);  // Alternar la visibilidad del menï¿½.
 
-        // Si el menú está abierto, pausamos el juego.
+        // Si el menï¿½ estï¿½ abierto, pausamos el juego.
         if (!isActive)
         {
+            if (timerController != null)
+            {
+                timerController.PauseTimer(); // Pausa el temporizador si existe
+            }
             Time.timeScale = 0;
         }
         else
         {
+            if (timerController != null)
+            {
+                timerController.ResumeTimer(); // Reanuda el temporizador si existe
+            }
             Time.timeScale = 1;
         }
     }
@@ -27,7 +36,7 @@ public class MenuPausa2D_2 : MonoBehaviour
     {
         if (PanelPausa != null)
         {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelPausa.SetActive(false); // Desactiva el panel del menï¿½ de pausa
         }
 
         string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
@@ -40,7 +49,7 @@ public class MenuPausa2D_2 : MonoBehaviour
     {
         if (PanelPausa != null)
         {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelPausa.SetActive(false); // Desactiva el panel del menï¿½ de pausa
         }
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Recargar la escena actual.
@@ -50,7 +59,7 @@ public class MenuPausa2D_2 : MonoBehaviour
     {
         if (PanelPausa != null)
         {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelPausa.SetActive(false); // Desactiva el panel del menï¿½ de pausa
         }
 
         string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
