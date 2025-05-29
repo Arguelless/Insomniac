@@ -11,7 +11,7 @@ public class MostrarPuntuacionFin : MonoBehaviour
         Debug.Log("Puntuación guardada: " + puntuacion);
         textoFinal.text = "Tu puntuación en la DjExperience: " + puntuacion;
 
-        if (PuntuacionManager.Instance != null)
+        if (PuntuacionManager.Instance != null && MenuPrincipal.instance.bucle == true)
         {
             PuntuacionManager.Instance.AsignarPuntos(4, puntuacion);
         }

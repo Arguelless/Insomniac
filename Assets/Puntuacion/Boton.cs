@@ -14,11 +14,14 @@ public class Boton : MonoBehaviour
     public void SalirAlMenu()
     {
         if (menuPrincipal != null)
-        {
-            menuPrincipal.bucle = false; // Asegurarse de que el bucle esté desactivado al volver al menú
-            Debug.Log("Bucle desactivado al volver al menú principal.");
-            // *** NO DESACTIVAR EL GAMEOBJECT DE MenuPrincipal AQUÍ ***
-            Debug.Log("GameObject de MenuPrincipal se mantiene activo.");
+        {          
+            if (MenuPrincipal.instance.bucle == true)
+            {
+                MenuPrincipal.instance.currentGameIndex = 0;
+                menuPrincipal.bucle = false;
+                Debug.Log("Bucle desactivado al volver al menú principal.");
+                Debug.Log("GameObject de MenuPrincipal se mantiene activo.");
+            }
         }
         else
         {

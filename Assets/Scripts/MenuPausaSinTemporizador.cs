@@ -22,6 +22,29 @@ public class MenuPausaSinTemporizador : MonoBehaviour
         }
     }
 
+    public void CargarSiguienteJuego()
+    {
+        SceneManager.LoadSceneAsync("JuegoAR");
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex++;
+        }
+    }
+
+    public void CargarPreparacionVR()
+    {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            SceneManager.LoadSceneAsync("PreparacionVR2D");
+            MenuPrincipal.instance.currentGameIndex++;
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync("PreparacionVR");
+        }
+    }
+
     public void ReiniciarJuego()
     {
         Time.timeScale = 1;
@@ -42,7 +65,10 @@ public class MenuPausaSinTemporizador : MonoBehaviour
         {
             Debug.LogError("No se encontró la instancia de MenuPrincipal al salir al menú.");
         }
-
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex = 0;
+        }
         string juegoActual = SceneManager.GetActiveScene().name;
         SceneManager.UnloadSceneAsync(juegoActual);
         SceneManager.LoadScene(MainMenu);

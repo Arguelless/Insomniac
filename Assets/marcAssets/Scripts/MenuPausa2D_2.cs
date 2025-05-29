@@ -38,7 +38,10 @@ public class MenuPausa2D_2 : MonoBehaviour
         {
             PanelPausa.SetActive(false); // Desactiva el panel del men� de pausa
         }
-
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex = 0;
+        }
         string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
         SceneManager.UnloadSceneAsync(juegoActual);
         SceneManager.LoadScene(MainMenu);
@@ -62,10 +65,12 @@ public class MenuPausa2D_2 : MonoBehaviour
             PanelPausa.SetActive(false); // Desactiva el panel del men� de pausa
         }
 
-        string juegoActual = SceneManager.GetActiveScene().name; // Obtiene el nombre de la escena actual
-        SceneManager.UnloadSceneAsync(juegoActual);
         Screen.orientation = ScreenOrientation.Portrait;
-        SceneManager.LoadScene(Juego2D_3);
+        SceneManager.LoadSceneAsync(Juego2D_3);
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex++;
+        }
     }
 
 }

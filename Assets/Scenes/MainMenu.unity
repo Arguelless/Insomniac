@@ -1352,9 +1352,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0f953bc886d45499e39832aec19c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 60
-  mainMenu: {fileID: 582810880}
+  mainMenu: {fileID: 1340389836}
   bucle: 0
+  timer: 60
+  currentGameIndex: 0
 --- !u!4 &1234853923
 Transform:
   m_ObjectHideFlags: 0
@@ -1367,7 +1368,8 @@ Transform:
   m_LocalPosition: {x: 802.92615, y: 1596.6027, z: -0.0743272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1340389840}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1234853924
@@ -1619,7 +1621,7 @@ RectTransform:
   - {fileID: 2071501658}
   - {fileID: 492315699}
   - {fileID: 1974333140}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1234853923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2384,6 +2386,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 961739753}
-  - {fileID: 1340389840}
   - {fileID: 1234853923}
   - {fileID: 2105505151}

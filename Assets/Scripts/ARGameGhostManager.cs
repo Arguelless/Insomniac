@@ -16,22 +16,11 @@ public class ARGhostGameManager : MonoBehaviour
 
     void Start()
     {
-        // Comprobar si estamos en el modo bucle
-        MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
-        if (menuPrincipal != null && menuPrincipal.bucle)
-        {
-            enBucle = true;
-            // Si estamos en bucle, iniciar la cuenta atrás automáticamente
-            IniciarCuentaAtrasAutomatico();
-        }
-        else
-        {
-            enBucle = false;
-            // Si no estamos en bucle, mostrar el panel de inicio
-            panelInicio.SetActive(true);
-            panelFin.SetActive(false);
-            spawner.enabled = false; // No empieza hasta que pulsemos OK
-        }
+
+        panelInicio.SetActive(true);
+        panelFin.SetActive(false);
+        spawner.enabled = false;
+        
     }
 
     public void BotonIniciarJuego()
@@ -74,7 +63,7 @@ public class ARGhostGameManager : MonoBehaviour
         panelFin.SetActive(true);
         textoFin.text = "Juego terminado\nPuntos: " + puntuacionFinal;
 
-        if (PuntuacionManager.Instance != null)
+        if (PuntuacionManager.Instance != null && MenuPrincipal.instance.bucle == true)
         {
             PuntuacionManager.Instance.AsignarPuntos(3, puntuacionFinal);
         }

@@ -23,7 +23,10 @@ public class TemporizadorSalida : MonoBehaviour
         {
             Debug.LogWarning("puntuacionVRManager es NULL"); // DEBUG
         }
-
-        SceneManager.LoadScene("FinVR");
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex ++;
+        }
+        SceneManager.LoadSceneAsync("FinVR");
     }
 }

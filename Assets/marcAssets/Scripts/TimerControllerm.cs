@@ -52,7 +52,10 @@ public class TimerControllerm : MonoBehaviour
                     score = 1000;
                 }
                 scoreTotalText.text = "Score Total: " + score.ToString();
-                PuntuacionManager.Instance.AsignarPuntos(1, score);
+                if (PuntuacionManager.Instance != null && MenuPrincipal.instance.bucle == true)
+                {
+                    PuntuacionManager.Instance.AsignarPuntos(1, score);
+                }              
             }
         }
     }

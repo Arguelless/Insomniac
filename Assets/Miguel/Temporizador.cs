@@ -92,11 +92,21 @@ public class Temporizador : MonoBehaviour
 
             if (PuntuacionManager.Instance != null)
             {
-                PuntuacionManager.Instance.AsignarPuntos(0, puntos);
+                if (MenuPrincipal.instance != null) // Comprobamos MenuPrincipal.instance aquí
+                {
+                    if (MenuPrincipal.instance.bucle == true)
+                    {
+                        PuntuacionManager.Instance.AsignarPuntos(0, puntos);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("MenuPrincipal.instance es null. No se pudo verificar el bucle.");
+                }
             }
             else
             {
-                Debug.LogError("La instancia de PuntuacionManager no está disponible.");
+                Debug.LogWarning("PuntuacionManager.Instance es null. No se pudieron asignar puntos.");
             }
 
             Puntuacion.text = puntos.ToString();
