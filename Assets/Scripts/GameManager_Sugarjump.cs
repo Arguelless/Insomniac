@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
         FindFirstObjectByType<MusicManager>()?.PararMusica();
 
-        if (PuntuacionManager.Instance != null)
+        if (PuntuacionManager.Instance != null && MenuPrincipal.instance.bucle == true)
         {
             PuntuacionManager.Instance.AsignarPuntos(2, puntuacion);
         }

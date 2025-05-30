@@ -22,6 +22,10 @@ public class BotonEmpezarVR : MonoBehaviour, IInteractuable
     public void Accion()
     {
         Debug.Log("¡Botón activado!");
-        SceneManager.LoadScene(escenaVR);
+        SceneManager.LoadSceneAsync(escenaVR);
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex ++;
+        }
     }
 }

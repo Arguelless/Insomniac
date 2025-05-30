@@ -17,33 +17,15 @@ public class MenuFinal : MonoBehaviour
         menuPrincipal = FindObjectOfType<MenuPrincipal>();
 
 
-        if (botonReiniciar == null)
-        {
-            Debug.LogError("El GameObject del botón Reiniciar no está asignado en el Inspector de MenuFinal.");
-        }
-
-        // Actualizar la visibilidad inicial del botón
-        ActualizarVisibilidadBotonReiniciar();
     }
 
     void Update()
     {
-        // Verificar el estado del bucle en cada frame (o cuando sea necesario)
-        ActualizarVisibilidadBotonReiniciar();
+
+
     }
 
-    void ActualizarVisibilidadBotonReiniciar()
-    {
-        if (menuPrincipal != null && botonReiniciar != null)
-        {
-            botonReiniciar.SetActive(!menuPrincipal.bucle); // Mostrar el botón si bucle es falso
-        }
-        else if (botonReiniciar != null)
-        {
-            // Si no se encuentra MenuPrincipal, asumimos que no estamos en bucle y mostramos el botón
-            botonReiniciar.SetActive(true);
-        }
-    }
+
 
     public void Reiniciar()
     {
@@ -58,9 +40,19 @@ public class MenuFinal : MonoBehaviour
             temporizador.ReiniciarTemporizador(); // Asumiendo que tienes este método
         }
 
-        SceneManager.LoadScene(Juego2D_1);
+        SceneManager.LoadSceneAsync(Juego2D_1);
 
         Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
+
+    public void cargarSiguienteJuego()
+    {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        SceneManager.LoadSceneAsync("Juego2D_2");
+        if (MenuPrincipal.instance.bucle == true)
+        {
+            MenuPrincipal.instance.currentGameIndex++;
+        } 
     }
 
     public void SalirAlMenu()
@@ -70,22 +62,34 @@ public class MenuFinal : MonoBehaviour
             PanelFinal.SetActive(false);
         }
 
-        // Encontrar la instancia persistente de MenuPrincipal
-        MenuPrincipal menuPrincipal = FindObjectOfType<MenuPrincipal>();
-        if (menuPrincipal != null)
+        if (MenuPrincipal.instance != null)
         {
-            menuPrincipal.bucle = false; // Asegurarse de que el bucle esté desactivado
-            menuPrincipal.gameObject.SetActive(true); // Asegurarse de que esté activo en el menú
-            Debug.Log("MenuPrincipal encontrado y activado al salir al menú.");
+            if (MenuPrincipal.instance.bucle == true)
+            {
+                MenuPrincipal.instance.bucle = false;
+                MenuPrincipal.instance.currentGameIndex = 0;
+            }           
+            Debug.Log("Estado de MenuPrincipal reseteado: Bucle desactivado, índice de juego a 0.");
+
+            if (MenuPrincipal.instance.mainMenu != null)
+            {
+                MenuPrincipal.instance.mainMenu.SetActive(true);
+                Debug.Log("UI del MenuPrincipal activada.");
+            }
+            else
+            {
+                Debug.LogError("Error: La referencia 'mainMenu' en MenuPrincipal no está asignada. Asigna el GameObject de la UI del menú en el Inspector.");
+            }
         }
         else
         {
-            Debug.LogError("No se encontró la instancia de MenuPrincipal al salir al menú.");
+            Debug.LogError("Error: La instancia de MenuPrincipal (Singleton) no se encontró. ¿Ha sido destruida por error?");
+            return;
         }
 
+        Time.timeScale = 1f;
         string juegoActual = SceneManager.GetActiveScene().name;
         SceneManager.UnloadSceneAsync(juegoActual);
-        SceneManager.LoadScene(MainMenu);
         Screen.orientation = ScreenOrientation.Portrait;
     }
 }

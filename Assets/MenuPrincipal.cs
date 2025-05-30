@@ -1,29 +1,42 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class MenuPrincipal : MonoBehaviour
 {
-    public float timer = 65f;
     public GameObject mainMenu;
     public bool bucle = false;
-    private int currentGameIndex = 0;
-    private readonly string[] juegos = { "Juego2D_1", "Juego2D_2", "Juego2D_3", "JuegoAR", "PreparacionVR2D", "JuegoVR", "FinVR", "Puntuacion" };
+    public float timer = 15; // Valor predeterminado para el temporizador
+    public int currentGameIndex = 0;
+    private readonly string[] juegos = { "Juego2D_1", "Juego2D_2", "Juego2D_3", "JuegoAR", "PreparacionVR2D", "PreparacionVR", "JuegoVR", "FinVR", "Puntuacion" };
     private bool juegoTerminadoManualmente = false;
 
     private VRInitializer vrInitializer;
     private XRManager xrManagerInstance;
 
-    private static MenuPrincipal instance;
+    public static MenuPrincipal instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        // --- Implementación correcta del patrón Singleton ---
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        // --- Fin de la implementación del Singleton ---
+
         SceneManager.sceneLoaded += OnSceneLoaded;
+
         vrInitializer = FindFirstObjectByType<VRInitializer>();
         if (vrInitializer == null)
         {
-            Debug.LogError("No se encontr� el script VRInitializer en la inicializaci�n de MenuPrincipal.");
+            Debug.LogError("No se encontró el script VRInitializer en la inicialización de MenuPrincipal.");
         }
         else
         {
@@ -33,7 +46,7 @@ public class MenuPrincipal : MonoBehaviour
         xrManagerInstance = FindObjectOfType<XRManager>();
         if (xrManagerInstance == null)
         {
-            Debug.LogError("No se encontr� la instancia de XRManager en MenuPrincipal.");
+            Debug.LogError("No se encontró la instancia de XRManager en MenuPrincipal.");
         }
         else
         {
@@ -44,8 +57,8 @@ public class MenuPrincipal : MonoBehaviour
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
-        Debug.Log("MenuPrincipal Start - bucle: " + bucle + ", timer: " + timer);
-
+        Time.timeScale = 1f;
+        Debug.Log("MenuPrincipal Start - bucle: " + bucle);
     }
 
     public void IniciarBucle()
@@ -53,35 +66,39 @@ public class MenuPrincipal : MonoBehaviour
         Debug.Log("IniciarBucle llamado. Estado activo de MenuPrincipal antes de activar: " + gameObject.activeSelf);
         gameObject.SetActive(true);
         bucle = true;
-        timer = 65f;
         currentGameIndex = 0;
         juegoTerminadoManualmente = false;
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         SceneManager.LoadSceneAsync("Juego2D_1");
-        Debug.Log("IniciarBucle - bucle: " + bucle + ", timer: " + timer);
+        Debug.Log("IniciarBucle - bucle: " + bucle);
+        if (mainMenu != null)
+        {
+            mainMenu.SetActive(false);
+            Debug.Log("UI del MenuPrincipal oculta.");
+        }
     }
 
     private void Update()
     {
-        if (bucle && !juegoTerminadoManualmente)
+        // Solo disminuye el temporizador si el bucle está activo Y la escena actual requiere un temporizador
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (bucle && (currentSceneName == "PreparacionVR2D" || currentSceneName == "FinVR"))
         {
             timer -= Time.deltaTime;
-            Debug.Log("Update (bucle activo) - Juego: " + currentGameIndex + ", T. restante: " + timer + ", Escena: " + SceneManager.GetActiveScene().name);
-
             if (timer <= 0)
             {
+                // Reinicia el temporizador a un valor alto para evitar llamadas múltiples
+                timer = 9999f;
+                Debug.Log($"Temporizador agotado en {currentSceneName}. Pasando al siguiente juego.");
                 SiguienteJuego();
             }
-        }
-        else
-        {
-            Debug.Log("Update (bucle inactivo) - timer: " + timer + ", Escena: " + SceneManager.GetActiveScene().name);
         }
     }
 
     public void SiguienteJuego()
     {
         juegoTerminadoManualmente = false;
+        string currentSceneNameInSequence = juegos[currentGameIndex];
 
         if (juegos[currentGameIndex] == "JuegoVR" && currentGameIndex + 1 < juegos.Length && juegos[currentGameIndex + 1] == "Puntuacion")
         {
@@ -103,28 +120,24 @@ public class MenuPrincipal : MonoBehaviour
         if (currentGameIndex < juegos.Length)
         {
             string nombreJuego = juegos[currentGameIndex];
-
-            if (nombreJuego == "PreparacionVR2D")
-            {
-                timer = 15f;
-            }
-            else if (nombreJuego == "Juego2D_2")
-            {
-                timer = 75f;
-            }
-            else
-            {
-                timer = 65f;
-            }
-            CargarJuegoActual();
+            CargarJuegoActual(); // CargarJuegoActual manejará la configuración del temporizador
             bucle = true;
         }
         else
         {
             bucle = false;
-            SceneManager.LoadScene("Hub");
+            SceneManager.LoadScene("MainMenu");
         }
-        Debug.Log("SiguienteJuego (fin) - bucle: " + bucle + ", timer: " + timer);
+
+        if (currentSceneNameInSequence == "PreparacionVR2D")
+        {
+            Debug.Log("Detectada escena PreparacionVR2D. Cargando directamente 'PreparacionVR'.");
+            AjustarPantalla("PreparacionVR");
+            SceneManager.LoadSceneAsync("PreparacionVR");
+            bucle = true;
+            return;
+        }
+        Debug.Log("SiguienteJuego (fin) - bucle: " + bucle);
     }
 
     public void CargarJuegoActual()
@@ -133,6 +146,9 @@ public class MenuPrincipal : MonoBehaviour
         {
             string nombreJuego = juegos[currentGameIndex];
             AjustarPantalla(nombreJuego);
+
+            // Reinicia el temporizador solo si es una de las escenas específicas
+            SetTimerForScene(nombreJuego);
 
             if (nombreJuego == "JuegoVR")
             {
@@ -155,7 +171,7 @@ public class MenuPrincipal : MonoBehaviour
                 SceneManager.LoadScene(nombreJuego);
             }
 
-            Debug.Log("CargarJuegoActual (fin) - bucle: " + bucle + ", timer: " + timer + ", juegoTerminadoManualmente: " + juegoTerminadoManualmente + ", Pr�ximo juego: " + (currentGameIndex < juegos.Length - 1 ? juegos[currentGameIndex + 1] : "Fin del bucle"));
+            Debug.Log("CargarJuegoActual (fin) - bucle: " + bucle + ", Próximo juego: " + (currentGameIndex < juegos.Length - 1 ? juegos[currentGameIndex + 1] : "Fin del bucle"));
         }
     }
 
@@ -163,15 +179,15 @@ public class MenuPrincipal : MonoBehaviour
     {
         if (bucle)
         {
-            bucle = false;
+            bucle = false; // El bucle se detiene por finalización manual del juego actual
             currentGameIndex++;
-            Debug.Log("JuegoTerminado (manual) - bucle detenido, �ndice incrementado a: " + currentGameIndex);
+            Debug.Log("JuegoTerminado (manual) - bucle detenido, índice incrementado a: " + currentGameIndex);
 
             if (currentGameIndex < juegos.Length)
             {
                 string siguienteJuego = juegos[currentGameIndex];
                 Debug.Log("Cargando siguiente juego (manual): " + siguienteJuego);
-                CargarEscena(siguienteJuego);
+                CargarEscena(siguienteJuego); // Llama a CargarEscena para la transición
             }
             else
             {
@@ -182,7 +198,7 @@ public class MenuPrincipal : MonoBehaviour
         }
         else
         {
-            Debug.Log("JuegoTerminado llamado pero el bucle no est� activo.");
+            Debug.Log("JuegoTerminado llamado pero el bucle no está activo.");
         }
     }
 
@@ -190,39 +206,49 @@ public class MenuPrincipal : MonoBehaviour
     {
         AjustarPantalla(nombreEscena);
 
-        if (nombreEscena == "PreparacionVR2D")
-        {
-            timer = 15f;
-        }
-        else
-        {
-            timer = 65f;
-        }
+        // Reinicia el temporizador solo si es una de las escenas específicas
+        SetTimerForScene(nombreEscena);
 
         if (nombreEscena == "JuegoVR")
         {
-            Debug.Log("Cargando escena PreparacionVR - Llamando a VRInitializer para iniciar VR");
+            Debug.Log("Cargando escena JuegoVR - Llamando a VRInitializer para iniciar VR");
             if (vrInitializer != null)
             {
                 Debug.Log("Llamando StartVR desde CargarEscena");
                 vrInitializer.StartVR();
                 SceneManager.LoadScene(nombreEscena);
-                bucle = true;
             }
             else
             {
                 Debug.LogError("VRInitializer no encontrado al iniciar VR.");
                 SceneManager.LoadScene(nombreEscena);
-                bucle = true;
             }
         }
         else
         {
             Debug.Log("Cargando escena: " + nombreEscena);
             SceneManager.LoadScene(nombreEscena);
-            bucle = true;
         }
-        Debug.Log("CargarEscena (fin) - bucle activado a: " + bucle + ", timer: " + timer + ", escena cargada: " + nombreEscena);
+        Debug.Log("CargarEscena (fin) - bucle activado a: " + bucle + " escena cargada: " + nombreEscena);
+    }
+
+    // Función centralizada para establecer el temporizador según la escena
+    private void SetTimerForScene(string sceneName)
+    {
+        if (sceneName == "PreparacionVR2D" || sceneName == "FinVR")
+        {
+            timer = 15f; // Estas escenas tienen un temporizador fijo de 15 segundos
+            Debug.Log($"Temporizador establecido en 15s para {sceneName}.");
+        }
+        else
+        {
+            // Para el resto de las escenas, el temporizador NO está activo para el avance automático.
+            // Lo ponemos en un valor que no active el if (timer <= 0) de Update
+            // Puede ser un valor grande positivo o simplemente un valor que no haga que la condición se cumpla.
+            timer = 15f; // Lo mantenemos en 15, pero Update no lo descontará para estas escenas
+                         // porque ya no cumple la condición de nombre de escena.
+            Debug.Log($"Temporizador **no** activo para avance automático en {sceneName}.");
+        }
     }
 
     public void AjustarPantalla(string nombreJuego)
@@ -235,16 +261,36 @@ public class MenuPrincipal : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Escena cargada: " + scene.name + " - bucle: " + bucle + ", timer: " + timer);
+        Debug.Log("Escena cargada: " + scene.name + " - bucle: " + bucle);
+
+        // Al cargar una escena, si el bucle está activo, aseguramos la configuración del temporizador
+        if (bucle)
+        {
+            SetTimerForScene(scene.name);
+        }
+        else if (scene.name == "MainMenu")
+        {
+            // Opcional: Asegúrate de que el timer esté en un estado neutro en el MainMenu
+            timer = 15f;
+        }
+
         if (scene.name.Contains("VR") && xrManagerInstance != null)
         {
             xrManagerInstance.SwitchXRProvider(scene.name);
         }
     }
-    public void CargarJuego2D_1() { bucle = false; Screen.orientation = ScreenOrientation.LandscapeLeft; SceneManager.LoadSceneAsync("Juego2D_1"); }
-    public void CargarJuego2D_2() { bucle = false; Screen.orientation = ScreenOrientation.LandscapeLeft; SceneManager.LoadSceneAsync("Juego2D_2"); }
-    public void CargarJuego2D_3() { bucle = false; Screen.orientation = ScreenOrientation.Portrait; SceneManager.LoadSceneAsync("Juego2D_3"); }
-    public void CargarJuegoAR() { bucle = false; Screen.orientation = ScreenOrientation.Portrait; SceneManager.LoadSceneAsync("JuegoAR"); }
+
+    // Funciones de carga directa (no forman parte del bucle, así que el timer no debería forzar el avance)
+    public void CargarJuego2D_1() {
+        if (mainMenu != null)
+        {
+            mainMenu.SetActive(false);
+            Debug.Log("UI del MenuPrincipal oculta.");
+        }
+        bucle = false; Screen.orientation = ScreenOrientation.LandscapeLeft; SceneManager.LoadSceneAsync("Juego2D_1"); SetTimerForScene("Juego2D_1"); }
+    public void CargarJuego2D_2() { bucle = false; Screen.orientation = ScreenOrientation.LandscapeLeft; SceneManager.LoadSceneAsync("Juego2D_2"); SetTimerForScene("Juego2D_2"); }
+    public void CargarJuego2D_3() { bucle = false; Screen.orientation = ScreenOrientation.Portrait; SceneManager.LoadSceneAsync("Juego2D_3"); SetTimerForScene("Juego2D_3"); }
+    public void CargarJuegoAR() { bucle = false; Screen.orientation = ScreenOrientation.Portrait; SceneManager.LoadSceneAsync("JuegoAR"); SetTimerForScene("JuegoAR"); }
     public void IniciarCambioAEscenaVR()
     {
         bucle = false;
@@ -255,11 +301,13 @@ public class MenuPrincipal : MonoBehaviour
             Debug.Log("Llamando StartVR desde IniciarCambioAEscenaVR");
             vrInitializer.StartVR();
             SceneManager.LoadSceneAsync("PreparacionVR");
+            SetTimerForScene("PreparacionVR"); // Aquí puede que quieras un timer si "PreparacionVR" es como PreparacionVR2D
         }
         else
         {
             Debug.LogError("VRInitializer no encontrado al iniciar VR desde IniciarCambioAEscenaVR.");
             SceneManager.LoadSceneAsync("PreparacionVR");
+            SetTimerForScene("PreparacionVR");
         }
     }
 

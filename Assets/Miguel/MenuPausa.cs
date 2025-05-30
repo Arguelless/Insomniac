@@ -72,12 +72,34 @@ public class MenuPausa : MonoBehaviour
     {
         if (PanelPausa != null)
         {
-            PanelPausa.SetActive(false); // Desactiva el panel del menú de pausa
+            PanelPausa.SetActive(false);
+        }
+
+        if (MenuPrincipal.instance != null)
+        {
+            MenuPrincipal.instance.bucle = false;
+            MenuPrincipal.instance.currentGameIndex = 0;
+
+            if (MenuPrincipal.instance.mainMenu != null)
+            {
+                MenuPrincipal.instance.mainMenu.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Error: La referencia 'mainMenu' en MenuPrincipal no está asignada. Asigna el GameObject de la UI del menú en el Inspector.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Error: La instancia de MenuPrincipal (Singleton) no se encontró. ¿Ha sido destruida por error?");
+            return;
         }
 
         Time.timeScale = 1f;
 
+        string juegoActual = SceneManager.GetActiveScene().name;
+        SceneManager.UnloadSceneAsync(juegoActual);
+
         Screen.orientation = ScreenOrientation.Portrait;
-        SceneManager.LoadScene(MainMenu);
     }
 }

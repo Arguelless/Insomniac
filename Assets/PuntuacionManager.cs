@@ -22,7 +22,7 @@ public class PuntuacionManager : MonoBehaviour
         }
     }
 
-    // Asignar puntos a un juego específico (0 a 4)
+    // Asignar puntos a un juego especï¿½fico (0 a 4)
     public void AsignarPuntos(int indiceJuego, int puntos)
     {
         if (indiceJuego >= 0 && indiceJuego < puntuaciones.Length)
@@ -32,11 +32,11 @@ public class PuntuacionManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Índice de juego inválido al asignar puntos.");
+            Debug.LogWarning("ï¿½ndice de juego invï¿½lido al asignar puntos.");
         }
     }
 
-    // Obtener la puntuación total
+    // Obtener la puntuaciï¿½n total
     public int ObtenerPuntuacionTotal()
     {
         int total = 0;
@@ -44,5 +44,14 @@ public class PuntuacionManager : MonoBehaviour
             total += p;
 
         return total;
+    }
+
+    public void ResetPuntuaciones()
+    {
+        for (int i = 0; i < puntuaciones.Length; i++)
+        {
+            puntuaciones[i] = 0;
+        }
+        Debug.Log("Puntuaciones reiniciadas.");
     }
 }
