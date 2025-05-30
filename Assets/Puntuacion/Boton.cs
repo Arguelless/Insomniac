@@ -19,15 +19,15 @@ public class Boton : MonoBehaviour
             {
                 MenuPrincipal.instance.currentGameIndex = 0;
                 menuPrincipal.bucle = false;
-                Debug.Log("Bucle desactivado al volver al menú principal.");
+                Debug.Log("Bucle desactivado al volver al menï¿½ principal.");
                 Debug.Log("GameObject de MenuPrincipal se mantiene activo.");
             }
         }
         else
         {
-            Debug.LogError("No se encontró el objeto MenuPrincipal al volver al menú principal.");
+            Debug.LogError("No se encontrï¿½ el objeto MenuPrincipal al volver al menï¿½ principal.");
         }
-
+        PuntuacionManager.Instance.ResetPuntuaciones(); // Asegurarse de que la puntuaciï¿½n se guarda antes de salir
         string juegoActual = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(MainMenu);
         Screen.orientation = ScreenOrientation.Portrait;
